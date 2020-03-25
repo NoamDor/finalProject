@@ -1,2 +1,2 @@
-# finalProject
-This is our final project in developing application course
+hi everybody
+can u watch my changes?
