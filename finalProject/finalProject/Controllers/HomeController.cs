@@ -1,4 +1,5 @@
-﻿using System;
+﻿using finalProject.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,8 @@ namespace finalProject.Controllers
     {
         public ActionResult Index()
         {
+            StoreContext store = new StoreContext();
+            StoreInitializer.Initialize(store);
             return View();
         }
 
