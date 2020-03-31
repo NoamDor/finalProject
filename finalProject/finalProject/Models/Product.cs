@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace finalProject.Models
@@ -6,20 +7,20 @@ namespace finalProject.Models
     public class Product
     {
         [Key]
-        [Display(Name = "מזהה")]
+        [DisplayName("מזהה")]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "שם")]
+        [DisplayName("שם")]
         [StringLength(30)]
         public string Name { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
-        [Display(Name = "מחיר")]
+        [DisplayName("מחיר")]
         public double Price { get; set; }
 
-        [Display(Name = "תמונה")]
+        [DisplayName("תמונה")]
         public string PictureName { get; set; }
 
         public virtual List<Purchase> Purchases { get; set; }
@@ -30,7 +31,7 @@ namespace finalProject.Models
 
         public int? ProductTypeId { get; set; }
 
-        [Display(Name = "סוג")]
+        [DisplayName("סוג")]
         public virtual ProductType ProductType { get; set; }
     }
 }

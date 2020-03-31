@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace finalProject.Models
@@ -6,14 +7,14 @@ namespace finalProject.Models
     public class ProductType
     {
         [Key]
-        [Display(Name = "מזהה")]
+        [DisplayName("מזהה")]
         public int Id { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "סוג מוצר")]
+        [DisplayName("סוג מוצר")]
         public string Name { get; set; }
 
-        [Display(Name = "מוצרים")]
+        [DisplayName("מוצרים")]
         public virtual List<Product> Products { get; set; }
     }
 }

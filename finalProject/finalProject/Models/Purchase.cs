@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace finalProject.Models
@@ -6,23 +7,23 @@ namespace finalProject.Models
     public class Purchase
     {
         [Key]
-        [Display(Name = "מזהה רכישה")]
+        [DisplayName("מזהה רכישה")]
         public int Id { get; set; }
 
-        [Display(Name = "תאריך רכישה")]
+        [DisplayName("תאריך רכישה")]
         public DateTime Date { get; set; }
 
         public int? ProductId { get; set; }
 
-        [Display(Name = "מוצר")]
+        [DisplayName("מוצר")]
         public virtual Product Product { get; set; }
 
-        [Display(Name = "כמות")]
+        [DisplayName("כמות")]
         public int Count { get; set; }
 
         public int? UserId { get; set; }
 
-        [Display(Name = "משתמש")]
+        [DisplayName("משתמש")]
         public virtual User User { get; set; }
     }
 }

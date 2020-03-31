@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace finalProject.Models
@@ -6,15 +7,28 @@ namespace finalProject.Models
     public class Supplier
     {
         [Key]
-        [Display(Name = "מזהה")]
+        [DisplayName("מזהה")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "שם ספק")]
+        [DisplayName("שם ספק")]
         public string Name { get; set; }
 
-        [Display(Name = "רשימת מוצרים")]
+        [Required]
+        [StringLength(30)]
+        [DisplayName("כתובת")]
+        public string Address { get; set; }
+
+        [Required]
+        [DisplayName("קו רוחב")]
+        public double Lat { get; set; }
+
+        [Required]
+        [DisplayName("קו אורך")]
+        public double Long { get; set; }
+
+        [DisplayName("רשימת מוצרים")]
         public virtual List<Product> Products { get; set; }
     }
 }

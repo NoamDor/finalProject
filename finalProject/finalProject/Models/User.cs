@@ -1,6 +1,7 @@
 ﻿using finalProject.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace finalProject
@@ -8,34 +9,39 @@ namespace finalProject
     public class User
     {
         [Key]
-        [Display(Name = "מזהה")]
+        [DisplayName("מזהה")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "שם משתמש")]
+        [DisplayName("שם משתמש")]
         public string Username { get; set; }
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "סיסמא")]
+        [DisplayName("סיסמא")]
         public string Password { get; set; }
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "כתובת מגורים")]
+        [DisplayName("כתובת מגורים")]
         public string Address { get; set; }
 
         [Required]
-        [Display(Name = "מין")]
+        [DisplayName("מין")]
         public Gender Gender { get; set; }
 
         [Required]
-        [Display(Name = "תאריך לידה")]
+        [DisplayName("תאריך לידה")]
         public DateTime BirthDate { get; set; }
 
         [Required]
-        [Display(Name = "האם מנהל")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "המספר שהזנת אינו תקין")]
+        [DisplayName("טלפון")]
+        public string Telephone { get; set; }
+
+        [Required]
+        [DisplayName("האם מנהל")]
         public Boolean IsAdmin { get; set; }
 
         public virtual List<Purchase> Purchases { get; set; }
