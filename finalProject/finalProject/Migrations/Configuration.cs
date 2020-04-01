@@ -1,11 +1,9 @@
-﻿namespace finalProject.Migrations
+namespace finalProject.Migrations
 {
-    using finalProject.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using static finalProject.Enums.Enums;
 
     internal sealed class Configuration : DbMigrationsConfiguration<finalProject.StoreContext>
     {
