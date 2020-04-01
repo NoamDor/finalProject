@@ -19,6 +19,7 @@ namespace finalProject
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,6 +38,11 @@ namespace finalProject
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Purchases)
                 .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Branch>()
+                .HasMany(e => e.Purchases)
+                .WithRequired(e => e.Branch)
                 .WillCascadeOnDelete(false);
         }
     }
