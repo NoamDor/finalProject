@@ -25,5 +25,10 @@ namespace finalProject.Models
 
         [DisplayName("משתמש")]
         public virtual User User { get; set; }
+
+        public int? BranchId { get; set; }
+
+        [Display(Name = "סניף")]
+        public virtual Branch Branch { get; set; }
     }
 }

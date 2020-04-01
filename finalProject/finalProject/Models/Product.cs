@@ -20,6 +20,11 @@ namespace finalProject.Models
         [DisplayName("מחיר")]
         public double Price { get; set; }
 
+        [Required]
+        [Display(Name = "גודל")]
+        [Range(0, int.MaxValue)]
+        public int Size { get; set; }
+
         [DisplayName("תמונה")]
         public string PictureName { get; set; }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using static finalProject.Enums.Enums;
 
 namespace finalProject
 {
@@ -45,11 +46,5 @@ namespace finalProject
         public Boolean IsAdmin { get; set; }
 
         public virtual List<Purchase> Purchases { get; set; }
-    }
-
-    public enum Gender
-    {
-        Male,
-        Female
     }
 }
