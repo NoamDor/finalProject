@@ -38,6 +38,13 @@ namespace finalProject.Data
                     new Supplier{Name="Puma"},
                 };
 
+            var branches = new Branch[]
+                {
+                    new Branch{Lat=5, Long=5, City="באר שבע", Address="שלדג 3", Telephone="0502516789"},
+                    new Branch{Lat=5, Long=5, City="תל אביב", Address="המייסדים 3", Telephone="0502516788"},
+                    new Branch{Lat=5, Long=5, City="חיפה", Address="פרחוני 8", Telephone="0502516799"}
+                };
+
             var productTypes = new ProductType[]
             {
                 new ProductType{Gender=Gender.Male,Name="חולצת ספורט גבר"},
