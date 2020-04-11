@@ -1,0 +1,55 @@
+﻿@model finalProject.Models.Purchase
+
+<div class='page-title-container'>
+    <h2 class='page-title'>רכישת מוצר</h2>
+</div>
+
+<div class='form-container'>
+    <form action="@Url.Action("Purchase")" method="post" class='form'>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <img style="height: 10vh;width: 6vw;"
+             src=@System.String.Format("/Content/Images/{0}", @Model.Product.PictureName) />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.Name, new { @class = "control-label" })
+            <input type="text" class="form-control" readonly value="@Model.Product.Name" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.Size, new { @class = "control-label" })
+            <input type="number" class="form-control" readonly value="@Model.Product.Size" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, new { @class = "control-label" })
+            <input name="Date" type="datetime" class="form-control" readonly value="@Model.Date" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, new { @class = "control-label" })
+            <input required id="Count" name="Count" type="number" class="form-control" />
+            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Branch, new { @class = "control-label" })
+            <select name="BranchId" class="form-control">
+                @foreach (var branch in ViewBag.Branches)
+                {
+                    <option value="@branch.Id">@branch.City</option>
+                }
+            </select>
+        </div>
+        @*<input type="hidden" name="UserId" value="@Model.UserId" />*@
+        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+        <div class="form-group form-footer">
+            <p id="TotalPrice" class="purchase-price control-label">&#8362;0</p>
+            <input type="submit" value="רכוש" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Products", null, new { @class = "full-list-action" })
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $("#Count").bind('keyup change', function () {
+            $('#TotalPrice').html('&#8362;' + $('#Count').val() * @Model.Product.Price);
+        });
+    </script>
+}

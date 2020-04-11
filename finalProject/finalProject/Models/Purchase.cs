@@ -18,6 +18,8 @@ namespace finalProject.Models
         [DisplayName("מוצר")]
         public virtual Product Product { get; set; }
 
+        [Required(ErrorMessage ="אנא הכנס כמות")]
+        [Range(1, int.MaxValue)]
         [DisplayName("כמות")]
         public int Count { get; set; }
 
