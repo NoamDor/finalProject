@@ -300,10 +300,18 @@
     <Content Include="Content\Images\puma-logo.jpg" />
     <Content Include="Content\Images\The-Ultimate-Guide-to-Selling-Clothes---Other-Apparel-Online.jpg" />
     <Content Include="Content\Suppliers.css" />
+    <Content Include="Content\home.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\backgrounds\1%402x.jpg" />
+    <Content Include="Images\backgrounds\1.jpg" />
+    <Content Include="Images\items\1.jpg" />
+    <Content Include="Images\logo%402x.png" />
+    <Content Include="Images\logo-dark%402x.png" />
+    <Content Include="Images\logo-dark.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="gitignore" />
@@ -313,12 +321,18 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.min.js" />
+    <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
