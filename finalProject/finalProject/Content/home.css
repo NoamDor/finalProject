@@ -1,0 +1,17 @@
+﻿/*home*/
+
+#home-div {
+    margin-top: 15px;
+}
+
+#youtube-embed, #myCarousel {
+    min-height: 300px;
+}
+
+#youtube-embed {
+    width: 100%;
+}
+
+.carousel-inner > .item > img {
+    height: 300px;
+}
