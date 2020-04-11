@@ -8,8 +8,19 @@
 }
 
     <div dir="rtl">
-        <h2>סניפים</h2>
-        <div style="display:inline-block">
+        <div class="row">
+            <div class="col-lg-9 col-md-9"></div>
+            <div class="col-lg-2 col-md-2">
+                <button value="צור" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+                        onclick="location.href='@Url.Action("Create", "Branches", new {})'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <h2>סניפים</h2>
+            </div>
+        </div>
+        <div style="display:inline-block; margin-top:20px">
             <form asp-action="Index" method="get" class="form-inline" style="display:inline">
                 <div class="form-group">
                     <div>@Html.DisplayNameFor(model => model.City)</div>
@@ -31,12 +42,12 @@
             </button>
 
         </div>
-       
+
         <div style="margin-top:30px">
             <div class="row">
-                <div class="col-lg-8 col-md-8">
+                <div class="col-lg-8 col-md-8" style="height: 200px">
                     aaa
-                    <div style=" height: 100%; width: 50%;"></div>
+                    <div style=" height: 100%; width: 50%;" id="map"></div>
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <table class="table">
@@ -57,27 +68,29 @@
                         <tbody dir="rtl">
                             @foreach (var item in Model)
                             {
-                            <tr scope="row">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.City)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Telephone)
-                                </td>
-                                <td>
-                                    <div style="display: flex; justify-content: center;">
-                                        <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px; margin-left: 3px">
-                                            <span class="glyphicon glyphicon-edit" style="color: white; padding-top: 4px; padding-right: 2px"></span>
+                                <tr scope="row">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; justify-content: center;">
+                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px; margin-left: 3px">
+                                                <span class="glyphicon glyphicon-edit" style="color: white; padding-top: 4px; padding-right: 2px"
+                                                      onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                            </div>
+                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px;">
+                                                <span class="glyphicon glyphicon-trash" style="color: white; padding-top: 4px; padding-right: 2px"
+                                                      onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
+                                            </div>
                                         </div>
-                                        <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px;">
-                                            <span class="glyphicon glyphicon-trash" style="color: white; padding-top: 4px; padding-right: 2px"></span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -86,22 +99,15 @@
         </div>
     </div>
 
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHAZzg-GFQtdb922AM04UgHnFcEcZs_dg&callback=initMap&language=iw&region=IL"
+            async defer></script>
 <script>
     var map;
     function initMap() {
-        map = new google.maps.Map(document.getElementById('branches_index_map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 31.771, lng: 35.217 },
             zoom: 9
         });
-        console.log(map)
-        //var marker = new google.maps.Marker({
-            //position: { lat: 31.771, lng: 35.217 },
-            //map: map,
-            //animation: google.maps.Animation.DROP,
-          //  title: 'Hello World!'
-        //});
-
         var branches = [];
         @foreach(var x in Model)
         {
@@ -133,5 +139,3 @@
        '</div>'
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHAZzg-GFQtdb922AM04UgHnFcEcZs_dg&callback=initMap&language=iw&region=IL"
-        async defer asp-append-version="true"></script>

@@ -502,6 +502,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Branches\index.cshtml" />
     <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
