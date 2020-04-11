@@ -129,14 +129,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Data\StoreInitializer.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004011448533_InitialCreate.cs" />
-    <Compile Include="Migrations\202004011448533_InitialCreate.Designer.cs">
-      <DependentUpon>202004011448533_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202004051642291_initial-create.cs" />
+    <Compile Include="Migrations\202004051642291_initial-create.Designer.cs">
+      <DependentUpon>202004051642291_initial-create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -153,6 +154,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\adidas-logo.jpg" />
+    <Content Include="Content\Images\Adidas.jpg" />
+    <Content Include="Content\Images\asics-logo.jpg" />
+    <Content Include="Content\Images\nike-logo.jpg" />
+    <Content Include="Content\Images\puma-logo.jpg" />
+    <Content Include="Content\Images\The-Ultimate-Guide-to-Selling-Clothes---Other-Apparel-Online.jpg" />
+    <Content Include="Content\Suppliers.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -185,6 +193,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Suppliers\Index.cshtml" />
+    <Content Include="Views\Suppliers\Edit.cshtml" />
+    <Content Include="Views\Suppliers\Delete.cshtml" />
+    <Content Include="Views\Suppliers\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -203,8 +215,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004011448533_InitialCreate.resx">
-      <DependentUpon>202004011448533_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004051642291_initial-create.resx">
+      <DependentUpon>202004051642291_initial-create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
