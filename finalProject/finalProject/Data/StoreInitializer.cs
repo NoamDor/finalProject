@@ -33,9 +33,10 @@ namespace finalProject.Data
 
             var suppliers = new Supplier[]
                 {
-                    new Supplier{Name="Adidas"},
-                    new Supplier{Name="Nike"},
-                    new Supplier{Name="Puma"},
+                    new Supplier{Name="Adidas", PictureName="adidas-logo.jpg"},
+                    new Supplier{Name="Nike", PictureName="nike-logo.jpg"},
+                    new Supplier{Name="Puma", PictureName="puma-logo.jpg"},
+                    new Supplier{Name="Asics", PictureName="asics-logo.jpg"}
                 };
 
             var branches = new Branch[]
@@ -53,6 +54,18 @@ namespace finalProject.Data
                 new ProductType{Gender=Gender.Female,Name="חולצת ספורט אישה"},
                 new ProductType{Gender=Gender.Male,Name="נעלי ספורט גבר"},
                 new ProductType{Gender=Gender.Female,Name="נעלי ספורט אישה"}
+            };
+
+            var products = new Product[]
+            {
+                    new Product{Name="מכנס גבר קטן 1",Size=35,Price=51,PictureName="1.jpg", Supplier = suppliers[0] ,ProductType = productTypes[0] },
+                    new Product{Name="מכנס גבר קטן 2",Size=35,Price=51,PictureName="1.jpg", Supplier = suppliers[0] ,ProductType = productTypes[0] },
+
+                    new Product{Name="מכנס גבר גדול 2",Size=46,Price=51,PictureName="1.jpg", Supplier = suppliers[1] ,ProductType = productTypes[0] },
+                    new Product{Name="מכנס גבר גדול 1",Size=45,Price=51,PictureName="1.jpg", Supplier = suppliers[1] ,ProductType = productTypes[0] },
+
+                    new Product{Name="מכנס אישה קטן 1",Size=35,Price=51,PictureName="1.jpg", Supplier = suppliers[2] ,ProductType = productTypes[1] },
+                    new Product{Name="מכנס אישה קטן 2",Size=35,Price=51,PictureName="1.jpg", Supplier = suppliers[2] ,ProductType = productTypes[1] },
             };
 
             if (!context.Users.Any())
@@ -80,6 +93,16 @@ namespace finalProject.Data
                 {
                     context.ProductTypes.Add(u);
                 }
+                context.SaveChanges();
+            }
+
+            if (!context.Products.Any())
+            {
+                foreach (Product e in products)
+                {
+                    context.Products.Add(e);
+                }
+
                 context.SaveChanges();
             }
         }
