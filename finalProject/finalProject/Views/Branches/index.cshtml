@@ -1,0 +1,141 @@
+﻿@model IEnumerable<finalProject.Models.Branch>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div dir="rtl">
+        <div class="row">
+            <div class="col-lg-9 col-md-9"></div>
+            <div class="col-lg-2 col-md-2">
+                <button value="צור" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+                        onclick="location.href='@Url.Action("Create", "Branches", new {})'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <h2>סניפים</h2>
+            </div>
+        </div>
+        <div style="display:inline-block; margin-top:20px">
+            <form asp-action="Index" method="get" class="form-inline" style="display:inline">
+                <div class="form-group">
+                    <div>@Html.DisplayNameFor(model => model.City)</div>
+                    <input type="text" name="City" class="form-control" value=@ViewData["BranchesCityQuery"]>
+                </div>
+                <div class="form-group">
+                    <div>@Html.DisplayNameFor(model => model.Address)</div>
+                    <input type="text" name="Address" class="form-control" value=@ViewData["BranchesAddressQuery"]>
+                </div>
+                <div class="form-group">
+                    <button type="submit" value="חפש" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </form>
+            <button value="רענן" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+                    onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+
+        </div>
+
+        <div style="margin-top:30px">
+            <div class="row">
+                <div class="col-lg-8 col-md-8" style="height: 200px">
+                    aaa
+                    <div style=" height: 100%; width: 50%;" id="map"></div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col" style="text-align: right">
+                                    @Html.DisplayNameFor(model => model.City)
+                                </th>
+                                <th scope="col" style="text-align: right">
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th scope="col" style="text-align: right">
+                                    @Html.DisplayNameFor(model => model.Telephone)
+                                </th>
+                                <th scope="col" style="text-align: right"></th>
+                            </tr>
+                        </thead>
+                        <tbody dir="rtl">
+                            @foreach (var item in Model)
+                            {
+                                <tr scope="row">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.City)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; justify-content: center;">
+                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px; margin-left: 3px">
+                                                <span class="glyphicon glyphicon-edit" style="color: white; padding-top: 4px; padding-right: 2px"
+                                                      onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                            </div>
+                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px;">
+                                                <span class="glyphicon glyphicon-trash" style="color: white; padding-top: 4px; padding-right: 2px"
+                                                      onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHAZzg-GFQtdb922AM04UgHnFcEcZs_dg&callback=initMap&language=iw&region=IL"
+            async defer></script>
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 31.771, lng: 35.217 },
+            zoom: 9
+        });
+        var branches = [];
+        @foreach(var x in Model)
+        {
+            @: branches.push({ lat: @x.Lat, lng: @x.Long, city: '@x.City', address: '@x.Address', phone: '@x.Telephone' });
+        }
+
+        branches.map(x => {
+            var marker = new google.maps.Marker({
+                position: { lat: x.lat, lng: x.lng },
+                animation: google.maps.Animation.DROP,
+                map: map
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+                content: generateContent(x)
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        });
+    }
+
+    function generateContent(branch) {
+        return '<div class="branches_map_window_info">' +
+            '<div>עיר: ' + branch.city + '<div></br>' +
+            '<div>כתובת: ' + branch.address + '<div></br>' +
+            '<div>טלפון: ' + branch.phone + '<div></br>' +
+       '</div>'
+    }
+</script>
