@@ -12,7 +12,7 @@ namespace finalProject.Models
 
         [Required]
         [StringLength(30)]
-        [DisplayName("שם ספק")]
+        [DisplayName("חברה")]
         public string Name { get; set; }
 
         [DisplayName("רשימת מוצרים")]

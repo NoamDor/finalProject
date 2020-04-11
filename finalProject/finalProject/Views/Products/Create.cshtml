@@ -1,0 +1,50 @@
+﻿@model finalProject.Models.Product
+
+<div class='page-title-container'>
+    <h2 class='page-title'>יצירת מוצר</h2>
+</div>
+
+<div class='form-container'>
+    <form action="@Url.Action("Create")" method="post" class='form' enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+            <input name="Name" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Size, new { @class = "control-label" })
+            <input name="Size" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, new { @class = "control-label" })
+            <input name="Price" type="number" class="form-control"/>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductType, new { @class = "control-label" })
+            <select name="ProductTypeId" class="form-control">
+                @foreach (var productType in ViewBag.ProductTypes)
+                {
+                    <option value="@productType.Id">@productType.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Supplier, new { @class = "control-label" })
+            <select name="SupplierId" class="form-control">
+                @foreach (var supplier in ViewBag.Suppliers)
+                {
+                    <option value="@supplier.Id">@supplier.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PictureName, new { @class = "control-label" })
+            <input type="file" name="file" />
+        </div>
+        <div class="form-group form-footer">
+            <input type="submit" value="צור" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Products", null, new { @class = "full-list-action" })
+        </div>
+    </form>
+</div>
