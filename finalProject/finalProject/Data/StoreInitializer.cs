@@ -52,7 +52,7 @@ namespace finalProject.Data
                     new Supplier{Name="Nike", PictureName="nike-logo.jpg"},
                     new Supplier{Name="Puma", PictureName="puma-logo.jpg"},
                     new Supplier{Name="Asics", PictureName="asics-logo.jpg"}
-
+            };
 
 
             var productTypes = new List<ProductType>
