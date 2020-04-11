@@ -48,11 +48,12 @@ namespace finalProject.Data
 
             var suppliers = new List<Supplier>
                 {
-                    new Supplier{Name="Adidas"},
-                    new Supplier{Name="Nike"},
-                    new Supplier{Name="Puma"},
-                    new Supplier{Name="Asics"}
-                };
+                    new Supplier{Name="Adidas", PictureName="adidas-logo.jpg"},
+                    new Supplier{Name="Nike", PictureName="nike-logo.jpg"},
+                    new Supplier{Name="Puma", PictureName="puma-logo.jpg"},
+                    new Supplier{Name="Asics", PictureName="asics-logo.jpg"}
+
+
 
             var productTypes = new List<ProductType>
             {

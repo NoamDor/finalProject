@@ -15,6 +15,9 @@ namespace finalProject.Models
         [DisplayName("חברה")]
         public string Name { get; set; }
 
+        [StringLength(30)]
+        public string PictureName { get; set; }
+
         [DisplayName("רשימת מוצרים")]
         public virtual List<Product> Products { get; set; }
     }
