@@ -61,23 +61,48 @@
 
     <table class="products-table table table-striped table-hover">
         <thead>
-            <tr>
-                <th scope="col" style="width: 26.5%">
+            <tr style="width: 98%">
+                @*<th scope="col" style="width: 26.5%">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Supplier.Name)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.ProductType.Name)
+        </th>
+        <th scope="col">
+
+        </th>*@
+
+                <th scope="col" style="width: 12%">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th scope="col" style="width: 15%">
+
+                </th>
+                <th scope="col" style="width: 15.5%">
                     @Html.DisplayNameFor(model => model.Size)
                 </th>
-                <th scope="col" style="width: 15%">
+                <th scope="col" style="width: 16%">
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
-                <th scope="col" style="width: 15%">
+                <th scope="col" style="width: 17%">
                     @Html.DisplayNameFor(model => model.Supplier.Name)
                 </th>
-                <th scope="col" style="width: 15%">
+                <th scope="col" style="width: 13%">
                     @Html.DisplayNameFor(model => model.ProductType.Name)
                 </th>
-                <th scope="col">
+                <th scope="col" style="width: 5%">
+
+                </th>
+                <th scope="col" style="width: 7.5%">
 
                 </th>
             </tr>

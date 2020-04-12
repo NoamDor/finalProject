@@ -1,17 +1,13 @@
 ﻿.page-container {
-    height: 100%;
+    /*height: 100%;*/
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*width: 85%;*/
-    /*margin: auto;
-    margin-right: 128px;
-    margin-left: 128px;*/
 }
 
 .products-table {
     direction: rtl;
-    height: 73%;
+    max-height: 300px;
     margin-top: 1%;
     width: 100%;
 }
@@ -34,7 +30,8 @@
 .products-table tbody {
     display: block;
     overflow-y: scroll;
-    height: 100%;
+    text-align: right;
+    /*height: 100%;*/
 }
 
 .products-table thead {
