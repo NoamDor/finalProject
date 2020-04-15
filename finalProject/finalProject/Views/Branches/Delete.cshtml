@@ -4,55 +4,42 @@
     ViewData["Title"] = "Delete";
 }
 
-    <div dir="rtl">
-        <div class='page_title_container'>
-            <h2 class='page_title'>מחיקת סניף</h2>
-        </div>
+<div class='page-title-container'>
+    <h2 class='page-title'>מחיקת סניף</h2>
+</div>
 
-        <button value="רענן" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
-                onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
-            <span class="glyphicon glyphicon-refresh">חזור </span>
-        </button>
-        <div style="margin-right: 128px; margin-left: 128px; margin-top: 16px; display: flex; justify-content: center;
-                flex-direction: column; align-items: center;">
-            <h3>אתה בטוח שברצונך למחוק סניף זה?</h3>
-            <div style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08); padding: 16px;
-                    min-width: 360px;">
-                <div>
-                    <label class="delete-label">@Html.DisplayNameFor(model => model.City):</label>
-                    @Html.DisplayFor(model => model.City)
-                </div>
-                <div>
-                    <label class="delete-label">@Html.DisplayNameFor(model => model.Address):</label>
-                    @Html.DisplayFor(model => model.Address)
-                </div>
-                <div>
-                    <label class="delete-label">@Html.DisplayNameFor(model => model.Telephone):</label>
-                    @Html.DisplayFor(model => model.Telephone)
-                </div>
-                <div>
-                    <label class="delete-label">@Html.DisplayNameFor(model => model.Long):</label>
-                    @Html.DisplayFor(model => model.Long)
-                </div>
-                <div>
-                    <label class="delete-label">@Html.DisplayNameFor(model => model.Lat):</label>
-                    @Html.DisplayFor(model => model.Lat)
-                </div>
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-            <div class="row">
-                <div class="form-group col-mg-2 col-md-2" style="margin-left: 35px; margin-top: 10px;
-}">
-                    <input type="submit" value="מחק" class="btn btn-default button" />
-                </div>
-                <div class="col-mg-10 col-md-10"></div>
-            </div>
-                }
-            </div>
+<div class='form-container'>
+    <h3>האם אתה בטוח שברצונך למחוק סניף זה?</h3>
+    @using (Html.BeginForm("Delete", "Branches", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.LabelFor(model => model.City, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.City)
         </div>
-
-    </div>
+        <div>
+            @Html.LabelFor(model => model.Address, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Address)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Telephone, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Telephone)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Long, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Long)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Lat, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Lat)
+        </div>
+        <div class='form-group form-footer'>
+            <input type="hidden" value="@Model.Id" />
+            <input type="submit" value="מחק" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Branches", null, new { @class = "full-list-action" })
+        </div>
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
