@@ -1,0 +1,165 @@
+﻿@model IEnumerable<finalProject.Models.Product>
+
+<div class='page-title-container'>
+    <h2 class='page-title'>מוצרים</h2>
+</div>
+
+@*<div class="create-product-container">
+        <button class="action-button btn btn-secondary" title="הוסף">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>*@
+
+<div class="page-container">
+    <form class="search-form" action="@Url.Action("Search")" method="post">
+        <div class="search-fields">
+            <div>
+                @Html.LabelFor(model => model.First().ProductType, new { @class = "control-label" })
+                <select id="productTypeFilter" name="ProductType" class="form-control">
+                    @{
+                        if (ViewData["ProductTypeField"] == null)
+                        {
+                            <option selected value="">ללא סינון</option>
+                        }
+                        else
+                        {
+                            <option value="">ללא סינון</option>
+                        }
+                        foreach (string productType in ViewBag.ProductTypes)
+                        {
+                            if (ViewData["ProductTypeField"] != null &&
+                                productType == ViewData["ProductTypeField"].ToString())
+                            {
+                                <option selected value="@productType">@productType</option>
+                            }
+                            else
+                            {
+                                <option value="@productType">@productType</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.First().Size, new { @class = "control-label" })
+                <input type="number" name="size" class="form-control" value="@ViewData["SizeField"]" />
+            </div>
+            <div>
+                @Html.LabelFor(model => model.First().Name, new { @class = "control-label" })
+                <input id="nameFilter" type="text" name="Name" class="form-control" />
+            </div>
+            <div class="search-button-container">
+                <button type="submit" class="submit-button btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+        <div class="full-list-container">
+            @Html.ActionLink("לרשימה המלאה", "Index", "Products")
+        </div>
+    </form>
+
+    <table class="products-table table table-striped table-hover">
+        <thead>
+            <tr style="width: 98%">
+                @*<th scope="col" style="width: 26.5%">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.Supplier.Name)
+        </th>
+        <th scope="col" style="width: 15%">
+            @Html.DisplayNameFor(model => model.ProductType.Name)
+        </th>
+        <th scope="col">
+
+        </th>*@
+
+                <th scope="col" style="width: 12%">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col" style="width: 15%">
+
+                </th>
+                <th scope="col" style="width: 15.5%">
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th scope="col" style="width: 16%">
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th scope="col" style="width: 17%">
+                    @Html.DisplayNameFor(model => model.Supplier.Name)
+                </th>
+                <th scope="col" style="width: 13%">
+                    @Html.DisplayNameFor(model => model.ProductType.Name)
+                </th>
+                <th scope="col" style="width: 5%">
+
+                </th>
+                <th scope="col" style="width: 7.5%">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 12%">
+                        @Html.DisplayFor(modelItem => item.Name)
+
+                    </td>
+                    <td style="width: 15%">
+                        <img style="height: 10vh;width: 6vw;"
+                             src=@System.String.Format("/Content/Images/{0}", item.PictureName) />
+                    </td>
+                    <td style="width: 15.5%">
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td style="width: 15%">
+                        @Html.DisplayFor(modelItem => item.Price)&#8362;
+                    </td>
+                    <td style="width: 15%">
+                        @Html.DisplayFor(modelItem => item.Supplier.Name)
+                    </td>
+                    <td style="width: 15%">
+                        @Html.DisplayFor(modelItem => item.ProductType.Name)
+                    </td>
+                    <td style="width: 5%">
+                        <button onclick='location.href ="@Url.Action("Purchase", "Products", new { id = @item.Id })"'
+                                class="action-button btn btn-default" title="רכוש">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </button>
+                    </td>
+                    <td style="width: 7.5%">
+                        <button onclick='location.href ="@Url.Action("Delete", "Products", new { id = @item.Id })"' 
+                                class="action-button btn btn-default" title="מחק">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <button onclick='location.href ="@Url.Action("Edit", "Products", new { id = @item.Id })"' 
+                                class="action-button btn btn-default" title="ערוך">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*@section Scripts {
+    <script>
+        function deleteProduct() {
+            var options = { "backdrop": "static", keyboard: true };  
+            $('#myModalContent').html('Tomer Succeded showing modal');
+            $('#myModal').modal(options);
+            $('#myModal').modal('show');  
+        }
+    </script>
+}*@

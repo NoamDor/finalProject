@@ -268,15 +268,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Data\StoreInitializer.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004051642291_initial-create.cs" />
-    <Compile Include="Migrations\202004051642291_initial-create.Designer.cs">
-      <DependentUpon>202004051642291_initial-create.cs</DependentUpon>
+    <Compile Include="Migrations\202004112001258_InitialCreate.cs" />
+    <Compile Include="Migrations\202004112001258_InitialCreate.Designer.cs">
+      <DependentUpon>202004112001258_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -293,6 +294,19 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\MenPants1.jpg" />
+    <Content Include="Content\Images\MenPants2.jpg" />
+    <Content Include="Content\Images\MenShirt1.jpg" />
+    <Content Include="Content\Images\MenShirt2.jpg" />
+    <Content Include="Content\Images\MenShoes1.jpg" />
+    <Content Include="Content\Images\MenShoes2.jpg" />
+    <Content Include="Content\Images\WomenPants1.jpg" />
+    <Content Include="Content\Images\WomenPants2.jpg" />
+    <Content Include="Content\Images\WomenShirt1.jpg" />
+    <Content Include="Content\Images\WomenShirt2.jpg" />
+    <Content Include="Content\Images\WomenShoes1.jpg" />
+    <Content Include="Content\Images\WomenShoes2.jpg" />
+    <Content Include="Content\Products.css" />
     <Content Include="Content\Images\adidas-logo.jpg" />
     <Content Include="Content\Images\Adidas.jpg" />
     <Content Include="Content\Images\asics-logo.jpg" />
@@ -300,10 +314,18 @@
     <Content Include="Content\Images\puma-logo.jpg" />
     <Content Include="Content\Images\The-Ultimate-Guide-to-Selling-Clothes---Other-Apparel-Online.jpg" />
     <Content Include="Content\Suppliers.css" />
+    <Content Include="Content\home.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\backgrounds\1%402x.jpg" />
+    <Content Include="Images\backgrounds\1.jpg" />
+    <Content Include="Images\items\1.jpg" />
+    <Content Include="Images\logo%402x.png" />
+    <Content Include="Images\logo-dark%402x.png" />
+    <Content Include="Images\logo-dark.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="gitignore" />
@@ -313,12 +335,18 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.0.min.js" />
+    <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -340,6 +368,11 @@
     <Content Include="Views\Suppliers\Edit.cshtml" />
     <Content Include="Views\Suppliers\Delete.cshtml" />
     <Content Include="Views\Suppliers\Create.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Purchase.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,13 +391,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004051642291_initial-create.resx">
-      <DependentUpon>202004051642291_initial-create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004112001258_InitialCreate.resx">
+      <DependentUpon>202004112001258_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

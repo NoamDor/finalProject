@@ -11,8 +11,6 @@ namespace finalProject.Controllers
     {
         public ActionResult Index()
         {
-            StoreContext store = new StoreContext();
-            StoreInitializer.Initialize(store);
             return View();
         }
 
