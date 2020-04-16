@@ -1,67 +1,50 @@
 ﻿@model finalProject.Models.Product
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class='page-title-container'>
     <h2 class='page-title'>עריכת מוצר</h2>
 </div>
 
 <div class='form-container'>
-    <form action="@Url.Action("Edit")" class='form' method="post" enctype="multipart/form-data">
+    @using (Html.BeginForm("Edit", "Products", FormMethod.Post,
+            new { enctype = "multipart/form-data", @class = "form" }))
+    {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
-            <input name="Name" type="text" class="form-control" value="@Model.Name" />
+            @Html.LabelFor(model => model.Name, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Size, new { @class = "control-label" })
+            @Html.LabelFor(model => model.Size, new { @class = "form-label" })
             <input name="Size" type="number" class="form-control" value="@Model.Size" />
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Price, new { @class = "control-label" })
+            @Html.LabelFor(model => model.Price, new { @class = "form-label" })
             <input name="Price" type="number" class="form-control" value="@Model.Price" />
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductType, new { @class = "control-label" })
-            <select name="ProductTypeId" class="form-control">
-                @foreach (var productType in ViewBag.ProductTypes)
-                {
-                    if (productType.Id == Model.ProductTypeId)
-                    {
-                        <option selected value="@productType.Id">@productType.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@productType.Id">@productType.Name</option>
-                    }
-                }
-            </select>
+            @Html.LabelFor(model => model.ProductType, new { @class = "form-label" })
+            @Html.DropDownList("ProductTypeId", null, new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Supplier, new { @class = "control-label" })
-            <select name="SupplierId" class="form-control">
-                @foreach (var supplier in ViewBag.Suppliers)
-                {
-                    if (supplier.Id == Model.SupplierId)
-                    {
-                        <option selected value="@supplier.Id">@supplier.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@supplier.Id">@supplier.Name</option>
-                    }
-                }
-            </select>
+            @Html.LabelFor(model => model.Supplier, new { @class = "form-label" })
+            @Html.DropDownList("SupplierId", null, new { @class = "form-control" })
         </div>
         <div class="form-group">
             @*<b>במידה והשארת את שדה זה ריק, התמונה של המוצר תישאר כמו לפני העדכון</b>*@
-            @Html.LabelFor(model => model.PictureName, new { @class = "control-label" })
+            @Html.LabelFor(model => model.PictureName, new { @class = "form-label" })
             <input type="file" name="file" />
         </div>
         <input type="hidden" name="PictureName" value="@Model.PictureName" />
-        <input type="hidden" name="Id" value="@Model.Id"/>
+        <input type="hidden" name="Id" value="@Model.Id" />
         <div class="form-group form-footer">
             <input type="submit" value="עדכן" class="submit-form-button btn btn-default" />
             @Html.ActionLink("לרשימה המלאה", "Index", "Products", null, new { @class = "full-list-action" })
         </div>
-    </form>
+    }
 </div>

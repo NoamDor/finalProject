@@ -4,54 +4,48 @@
     ViewData["Title"] = "Create";
 }
 
-<div dir="rtl">
-
-    <div class='page_title_container'>
-        <h2 class='page_title'>יצירת סניף</h2>
-    </div>
-
-    <div class='create_edit_form_container'>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.City)
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Address)
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Telephone)
-                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Lat)
-                @Html.EditorFor(model => model.Lat, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Long)
-                @Html.EditorFor(model => model.Long, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Long, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="form-group form_footer">
-                <input type="submit" value="צור" class="btn btn-default button" />
-            </div>
-        }
 
 
-        <button value="רענן" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
-                onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
-            <span class="glyphicon glyphicon-refresh"></span>
-        </button>
-    </div>
+<div class='page_title_container'>
+    <h2 class='page_title'>יצירת סניף</h2>
+</div>
+
+<div class='form-container'>
+    @using (Html.BeginForm("Create", "Branches", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "form-label" })
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telephone, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lat, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Lat, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Long, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Long, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Long, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group form-footer">
+            <input type="submit" value="צור" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Branches", null, new { @class = "full-list-action" })
+        </div>
+    }
 </div>
 
 @section Scripts {
