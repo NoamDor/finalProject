@@ -48,9 +48,9 @@ body {
     align-self: center;
 }
 
-.full-list-action {
+.full-list-action { 
     align-self: center;
-    padding-top: 9%;
+    margin-top: 5%;
 }
 
 strong {
