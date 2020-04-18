@@ -28,22 +28,22 @@ namespace finalProject
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.Purchases)
                 .WithRequired(e => e.Product)
-                .WillCascadeOnDelete(false);            
+                .WillCascadeOnDelete(true);            
 
             modelBuilder.Entity<Supplier>()
                 .HasMany(e => e.Products)
                 .WithRequired(e => e.Supplier)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Purchases)
                 .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Branch>()
                 .HasMany(e => e.Purchases)
                 .WithRequired(e => e.Branch)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }
