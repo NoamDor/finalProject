@@ -1,0 +1,93 @@
+﻿@model IEnumerable<finalProject.Models.Product>
+
+<div class='page-title-container'>
+    <h2 class='page-title'>מוצרים</h2>
+</div>
+
+<div class="page-container">
+    <div class='admin_graph_container'>
+        <div class='admin_graph' id='graph_1'>
+            <h1>מכירות של מוצרים בכל סניף</h1>
+            <div id="stat_1"></div>
+        </div>
+        <div class='admin_graph' id='graph_2'>
+            <h1>מכירות לפי סוגי מוצרים</h1>
+            <div id="stat_2"></div>
+        </div>
+        <div class='admin_graph' id='graph_3'>
+            <h1>גרף שלישי</h1>
+            <div id="stat_3"></div>
+        </div>
+    </div>
+</div>
+
+<script src='~/Content/lib/jquery/dist/jquery.js'></script>
+<script src="~/Content/lib/d3/d3.js"></script>
+
+<script>
+    $.ajax({
+        type: 'GET',
+        url: '/Admin/BranchSales',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: (res) => {
+            createGraphWithData('#stat_1', res);
+        },
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: '/Admin/ProductSales',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: (res) => createGraphWithData('#stat_2', res),
+    });
+
+    function createGraphWithData(element, data) {
+        var colors = ['#F44336', '#5C6BC0', '#1E88E5', '#4DD0E1', '#0288D1', '#00897B'];
+        var margin = ({ top: 20, right: 0, bottom: 30, left: 40 });
+        var height = 300;
+        var width = 430;
+        var yAxis = g => g
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(y))
+            .call(g => g.select(".domain").remove());
+        var xAxis = g => g
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x)
+                .tickSizeOuter(0));
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.count)]).nice()
+            .range([height - margin.bottom, margin.top]);
+        var x = d3.scaleBand()
+            .domain(data.map(d => d.name))
+            .range([margin.left, width - margin.right])
+            .padding(0.1);
+
+        var svg = d3.select(element)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        svg.append("g")
+            .attr("fill", "steelblue")
+            .selectAll("rect").data(data).enter().append("rect")
+            .attr("x", d => x(d.name))
+            .attr("y", d => y(d.count))
+            .attr("height", d => y(0) - y(d.count))
+            .attr("width", x.bandwidth())
+            .attr("fill", (d, i) => { return colors[i % colors.length] });
+
+        svg.append("g")
+            .call(xAxis);
+
+        svg.append("g")
+            .call(yAxis);
+
+        svg.node();
+
+        $('.admin_page_container').css('visibility', 'visible');
+        $('.admin_page_container').css('animation-name', 'fade');
+    }
+
+</script>

@@ -1,28 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using finalProject.Models;
+using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using finalProject.Data;
-using finalProject.Models;
 
 namespace finalProject.Controllers
 {
     public class SuppliersController : Controller
     {
         private readonly StoreContext _context = new StoreContext();
+        private const string _imagesPath = "~/Content/Images";
 
         public SuppliersController()
         {
         }
 
-        // // GET: Suppliers
-        public ActionResult Index()
+        // GET: Suppliers
+        public async Task<ActionResult> Index()
         {
             //return View(await _context.Suppliers.AsQueryable().ToListAsync());
-            return View(_context.Suppliers.ToList());
+            return View(await _context.Suppliers.ToListAsync());
         }
 
         // GET: Suppliers/Create
@@ -33,65 +35,115 @@ namespace finalProject.Controllers
 
         // POST: Suppliers/Create
         [HttpPost]
-        public ActionResult Create(Supplier supplier)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(HttpPostedFileBase file, Supplier supplier)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                if (supplier.PictureName != null)
+                {
+                    supplier.PictureName = file.FileName;
+                    file.SaveAs(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
+                }
+
+                try
                 {
                     _context.Suppliers.Add(supplier);
-                    _context.SaveChanges();
-                    return RedirectToAction("Index");
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (Exception e)
                 {
-                    //ViewBag.RoomTypeList = GetRoomTypeListItems();
-                    return View(supplier);
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
             }
-            catch
-            {
-                ViewBag.Error = "Error occurred, new room was not saved";
-                //ViewBag.RoomTypeList = GetRoomTypeListItems();
-                return View();
-            }
+
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int SupplierID)
+        public async Task<ActionResult> Edit(int? SupplierID)
         {
-            var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
+
+            if (SupplierID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
+            if (supplier == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
 
             return View(supplier);
         }
 
         [HttpPost]
-        public ActionResult Edit(Supplier supplier)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Supplier supplier)
         {
-            _context.Entry(supplier).State = EntityState.Modified;
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (!_context.Suppliers.Any(val => val.Id == supplier.Id))
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                    }
+
+                    _context.Entry(supplier).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
 
-        public ActionResult Delete(int SupplierID)
+        public async Task<ActionResult> Delete(int? SupplierID)
         {
-            var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
+            if (SupplierID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
+            if (supplier == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
 
             return View(supplier);
+
+            //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
         }
 
         [HttpPost]
-        public ActionResult Delete(int SupplierID, Supplier suplier)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int SupplierID, Supplier suplier)
         {
-            var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
+            var supplier = await _context.Suppliers.FindAsync(SupplierID);
 
             if (supplier == null)
             {
                 return HttpNotFound();
             }
 
+            supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
+            
+            if (suplier.PictureName != null)
+            {
+                // delete the product image from fs
+                System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), suplier.PictureName));
+            }
+
             _context.Suppliers.Remove(supplier);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

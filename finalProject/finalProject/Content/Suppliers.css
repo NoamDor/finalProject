@@ -1,1 +1,53 @@
-﻿
+﻿.page-title {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.create-btn {
+    display: inline-block;
+    float: left;
+    margin: 10px;
+    border: none;
+}
+
+.btn-p {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.btn-span {
+    display: inline-block;
+}
+
+.my-thumbnail {
+    min-height: 280px;
+    background-color: #cccccc75;
+    border-radius: 25px;
+}
+
+.trans-btn {
+    display: inline-block;
+    float: left;
+    margin: 10px;
+    border: none;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.item-name {
+    font-weight: bold;
+    margin-right: 7%
+}
+
+.item-image {
+    min-height: 150px;
+}
+
+.item-products {
+    min-height: 200px;
+    overflow-y: scroll;
+}
