@@ -33,6 +33,9 @@
         success: (res) => {
             createGraphWithData('#stat_1', res);
         },
+        error: (e) => {
+            console.log(e);
+        }
     });
 
     $.ajax({
@@ -41,6 +44,9 @@
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: (res) => createGraphWithData('#stat_2', res),
+        error: (e) => {
+            console.log(e);
+        }
     });
 
     function createGraphWithData(element, data) {
@@ -57,10 +63,10 @@
             .call(d3.axisBottom(x)
                 .tickSizeOuter(0));
         var y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.count)]).nice()
+            .domain([0, d3.max(data, d => d.Count)]).nice()
             .range([height - margin.bottom, margin.top]);
         var x = d3.scaleBand()
-            .domain(data.map(d => d.name))
+            .domain(data.map(d => d.Name))
             .range([margin.left, width - margin.right])
             .padding(0.1);
 
@@ -72,9 +78,9 @@
         svg.append("g")
             .attr("fill", "steelblue")
             .selectAll("rect").data(data).enter().append("rect")
-            .attr("x", d => x(d.name))
-            .attr("y", d => y(d.count))
-            .attr("height", d => y(0) - y(d.count))
+            .attr("x", d => x(d.Name))
+            .attr("y", d => y(d.Count))
+            .attr("height", d => y(0) - y(d.Count))
             .attr("width", x.bandwidth())
             .attr("fill", (d, i) => { return colors[i % colors.length] });
 
