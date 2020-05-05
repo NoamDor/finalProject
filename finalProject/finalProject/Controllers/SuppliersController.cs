@@ -95,19 +95,15 @@ namespace finalProject.Controllers
             {
                 try
                 {
-                    _context.Entry(supplierToUpdate).CurrentValues.SetValues(supplier);
-
-                    //_context.Entry(supplier).State = EntityState.Modified;
-
-                    // case the user put new image to update
+                    // In case the user put new image to update
                     if (file != null)
                     {
-                        // Delete old picture, save new one
-                        System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), supplier.PictureName));
-                        System.IO.File.Create(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
+                        // Save new picture
+                        file.SaveAs(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
                         supplier.PictureName = file.FileName;
                     }
 
+                    _context.Entry(supplierToUpdate).CurrentValues.SetValues(supplier);
                     await _context.SaveChangesAsync();
                 }
                 catch (Exception e)
