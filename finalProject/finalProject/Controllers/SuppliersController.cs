@@ -136,12 +136,6 @@ namespace finalProject.Controllers
 
             supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
             
-            if (suplier.PictureName != null)
-            {
-                // delete the product image from fs
-                System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), suplier.PictureName));
-            }
-
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
