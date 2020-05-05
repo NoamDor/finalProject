@@ -132,7 +132,7 @@ namespace finalProject.Data
             var purchases = new List<Purchase>
             {
                 new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[0],Branch=branches[0],User=users[0]},
-                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[1],Branch=branches[1],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[4],Branch=branches[1],User=users[0]},
                 new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[20],Branch=branches[2],User=users[0]},
                 new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[21],Branch=branches[3],User=users[0]},
                 new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[40],Branch=branches[2],User=users[0]},

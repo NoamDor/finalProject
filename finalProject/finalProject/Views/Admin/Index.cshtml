@@ -1,21 +1,22 @@
-﻿@model IEnumerable<finalProject.Models.Product>
-
+﻿
 <div class='page-title-container'>
-    <h2 class='page-title'>מוצרים</h2>
+    <h2 class='page-title'>גרפים למנהל</h2>
 </div>
 
-<div class="page-container">
-    <div class='admin_graph_container'>
-        <div class='admin_graph' id='graph_1'>
+<div class="container">
+    <div class="row">
+        <div class='col-md-6' id='graph_1'>
             <h1>מכירות של מוצרים בכל סניף</h1>
             <div id="stat_1"></div>
         </div>
-        <div class='admin_graph' id='graph_2'>
+        <div class='col-md-6' id='graph_2'>
             <h1>מכירות לפי סוגי מוצרים</h1>
             <div id="stat_2"></div>
         </div>
-        <div class='admin_graph' id='graph_3'>
-            <h1>גרף שלישי</h1>
+    </div>
+    <div class="row">
+        <div id='graph_3'>
+            <h1>מכירות לפי ספק</h1>
             <div id="stat_3"></div>
         </div>
     </div>
@@ -44,6 +45,17 @@
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: (res) => createGraphWithData('#stat_2', res),
+        error: (e) => {
+            console.log(e);
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: '/Admin/SuppliersSales',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: (res) => createGraphWithData('#stat_3', res),
         error: (e) => {
             console.log(e);
         }

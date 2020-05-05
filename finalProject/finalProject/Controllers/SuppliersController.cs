@@ -40,7 +40,7 @@ namespace finalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (supplier.PictureName != null)
+                if (file.FileName != null)
                 {
                     supplier.PictureName = file.FileName;
                     file.SaveAs(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
@@ -81,23 +81,39 @@ namespace finalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Supplier supplier)
+        public async Task<ActionResult> Edit(HttpPostedFileBase file, Supplier supplier)
         {
+
+            Supplier supplierToUpdate = await _context.Suppliers.FindAsync(supplier.Id);
+
+            if (supplierToUpdate == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (!_context.Suppliers.Any(val => val.Id == supplier.Id))
+                    _context.Entry(supplierToUpdate).CurrentValues.SetValues(supplier);
+
+                    //_context.Entry(supplier).State = EntityState.Modified;
+
+                    // case the user put new image to update
+                    if (file != null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                        // Delete old picture, save new one
+                        System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), supplier.PictureName));
+                        System.IO.File.Create(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
+                        supplier.PictureName = file.FileName;
                     }
 
-                    _context.Entry(supplier).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    ModelState.AddModelError("", "Unable to save changes");
+                    return new HttpStatusCodeResult(HttpStatusCode.ExpectationFailed);
                 }
             }
 

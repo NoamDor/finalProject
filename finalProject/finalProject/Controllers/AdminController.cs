@@ -108,5 +108,38 @@ namespace finalProject.Controllers
 
             return null;
         }
+
+        [Route("/Admin/SuppliersSales")]
+        [HttpGet]
+        public JsonResult SuppliersSales()
+        {
+            try
+            {
+                var result = _context.Purchases.Join(_context.Products,
+                    (purchase => purchase.Product.Id),
+                    (product => product.Id),
+                    (pur, pro) => new
+                    {
+                        SupplierId = pro.SupplierId,
+                        SupplierName = pro.Supplier.Name,
+                        count = pur.Count
+                    })
+                .GroupBy(b => b.SupplierId)
+                .Select(p => new
+                {
+                    Count = p.Sum(pur => pur.count),
+                    Name = p.FirstOrDefault(pur => pur.SupplierId == p.Key).SupplierName,
+                    Id = p.Key
+                }).ToList();
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e);
+            }
+
+            return null;
+        }
     }
 }

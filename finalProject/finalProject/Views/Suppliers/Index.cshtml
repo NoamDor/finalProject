@@ -1,70 +1,56 @@
 ﻿@model IEnumerable<finalProject.Models.Supplier>
-@{
-//Layout = null;
-}
 
-<!DOCTYPE html>
-
-<html dir="rtl">
-<head>
-
-</head>
-<body>
-    <div class="container">
-        <div>
-            <div class='page-title-container'>
-                <h2 class='page-title'>ספקים</h2>
-            </div>
-            <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Suppliers")">
-                <p class="btn-p">הוספת ספק</p>
-                <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
-            </a>
-        </div>
-        <br />
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-6">
-                    <div class="thumbnail my-thumbnail">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
-                                    <span class="glyphicon glyphicon-trash btn-span" aria-hidden="true"></span>
-                                </a>
-                                <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
-                                    <span class="glyphicon glyphicon-pencil btn-span" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 class="item-name">
-                            @item.Name
-                        </h4>
-                        <img class="item-image" src=@System.String.Format("../../Content/Images/{0}",item.PictureName) width="150px" height="150px">
-                        <div class="caption">
-                            <p>
-                                <h4>
-                                    מוצרים:
-                                </h4>
-                                <div class="well item-products">
-                                    @{
-                                        var productsArray = item.Products.ToArray();
-                                        for (int i = 0; i < productsArray.Length; i++)
-                                        {
-                                            @Html.DisplayFor(p => productsArray[i].Name);
-                                            if (i != productsArray.Length - 1)
-                                            {
-                                                @:,
-                                            }
-                                        }
-                                    }
-                                </div>
-                            </p>
-                        </div>
+<div>
+    <div class='page-title-container'>
+        <h1 class='page-title'>ספקים</h1>
+    </div>
+    <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Suppliers")">
+        <p class="btn-p">הוספת ספק</p>
+        <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
+    </a>
+</div>
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="thumbnail my-thumbnail">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
+                            <span class="glyphicon glyphicon-trash btn-span" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
+                            <span class="glyphicon glyphicon-pencil btn-span" aria-hidden="true"></span>
+                        </a>
                     </div>
                 </div>
-            }
+                <h4 class="item-name">
+                    @item.Name
+                </h4>
+                <img class="item-image" src=@System.String.Format("../../Content/Images/{0}",item.PictureName) width="150px" height="150px">
+                <div class="caption">
+                    <p>
+                        <h4>
+                            מוצרים:
+                        </h4>
+                        <div class="well item-products">
+                            @{
+                                var productsArray = item.Products.ToArray();
+                                for (int i = 0; i < productsArray.Length; i++)
+                                {
+                                    @Html.DisplayFor(p => productsArray[i].Name);
+                                    if (i != productsArray.Length - 1)
+                                    {
+                                        @:,
+                                    }
+                                }
+                            }
+                        </div>
+                    </p>
+                </div>
+            </div>
         </div>
-        <br />
-    </div>
-</body>
-</html>
+    }
+</div>
+<br />
