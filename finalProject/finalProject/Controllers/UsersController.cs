@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -94,5 +95,77 @@ namespace finalProject.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        // GET: Users/Register
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register([Bind(Include = "Username,Password,Address,BirthDate,Telephone,Gender")] User user)
+        {
+            if (_context.Users.Any(e => e.Username == user.Username))
+            {
+                ViewData["errorMessage"] = "שם משתמש זה קיים כבר במערכת";
+                return View(nameof(Register));
+            }
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return await LoginUser(user.Username, user.Password);
+            
+           
+        }
+
+        // GET: Users/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+
+        // GET: Users/Login/5
+        public async Task<ActionResult> LoginUser(string userName, string password)
+        {
+            if (userName == null || password == null)
+            {
+                return View("Login");
+            }
+
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == userName && u.Password == password);
+            if (user == null)
+            {
+                return View(nameof(NotFound));
+            }
+            HttpContext.Session.Add("isAdmin", user.IsAdmin ? "true" : "false");
+            HttpContext.Session.Add("username", user.Username);
+            HttpContext.Session.Add("userid", user.Id.ToString());
+            HttpContext.Session.Add("isLogin", "true");
+
+            if (user.IsAdmin)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", "Home", null);
+        }
+
+        // GET: Users/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Add("isAdmin", "false");
+            HttpContext.Session.Add("username", "");
+            HttpContext.Session.Add("userid", "-1");
+            HttpContext.Session.Add("isLogin", "false");
+
+            return RedirectToAction("Index", "Home", null);
+        }
+
     }
 }
