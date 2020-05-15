@@ -35,6 +35,7 @@
                     @{
                         if (isAdmin != null && isAdmin.ToString() == "true")
                         {
+                            <li><a href="/Admin">ניהול</a></li>
                             <li><a href="/Users">משתמשים</a></li>
                         }
                     }
@@ -73,6 +74,15 @@
                             המותגים המובילים בעולם במחירים הנמוכים מכולם
                         </p>
                     </div>
+                    @*facebook share button*@
+                    <div  style="padding-top: 15px;">
+                        <div class="fb-share-button"
+                             data-href="http://sportstar.org.uk/"
+                             data-layout="button_count">
+                        </div>
+                    </div>
+                    <script src="../Scripts/Facebook.js"></script>
+                    @*facebook share button*@
                 </div>
             </div>
         </div>

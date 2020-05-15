@@ -1,80 +1,56 @@
 ﻿@model IEnumerable<finalProject.Models.Supplier>
-@{
-//Layout = null;
-}
 
-<!DOCTYPE html>
-
-<html dir="rtl">
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Suppliers.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-</head>
-<body>
-    @*style="background-image:url('https://www.volusion.com/blog/content/images/2017/04/The-Ultimate-Guide-to-Selling-Clothes---Other-Apparel-Online.jpg');"*@
-    <div class="container">
-        <div>
-            <h2 style="font-weight: bold; display:inline-block;">
-                רשימת ספקים:
-            </h2>
-            <a class="btn btn-default btn-lg" aria-label="Left Align" style="display:inline-block; float: left; margin: 10px; border:none;"
-               href="@Url.Action("Create", "Suppliers")">
-                <p style="display:inline-block; font-weight: bold;">הוספת ספק</p>
-                <span class="glyphicon glyphicon-plus" aria-hidden="true" style="display:inline-block;"></span>
-            </a>
-        </div>
-        <br />
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-6">
-                    <div class="thumbnail" style="min-height: 280px; background-color: #cccccc75; border-radius: 25px;">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a class="btn btn-default" aria-label="Left Align" style="display:inline-block; float: left; margin: 10px; border:none;
-                                   background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer;overflow: hidden;outline:none;"
-                                   href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true" style="display:inline-block;"></span>
-                                </a>
-                                <a class="btn btn-default" aria-label="Left Align" style="display:inline-block; float: left; margin: 10px; border:none;
-                                   background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer;overflow: hidden;outline:none;"
-                                   href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="display:inline-block;"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 style="font-weight: bold; margin-right: 7%">
-                            @item.Name
-                        </h4>
-                        <img src=@System.String.Format("/Images/Suppliers{0}",item.PictureName) width="150px" height="150px" style="min-height: 150px;">
-                        <div class="caption">
-                            <p>
-                                <h4>
-                                    מוצרים:
-                                </h4>
-                                <div class="well" style=" min-height: 200px; overflow-y: scroll; ">
-                                    @{
-                                        var productsArray = item.Products.ToArray();
-                                        for (int i = 0; i < productsArray.Length; i++)
-                                        {
-                                            @Html.DisplayFor(p => productsArray[i].Name);
-                                            if (i != productsArray.Length - 1)
-                                            {
-                                                @:,
-                                            }
-                                        }
-                                    }
-                                </div>
-                            </p>
-                        </div>
+<div>
+    <div class='page-title-container'>
+        <h1 class='page-title'>ספקים</h1>
+    </div>
+    <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Suppliers")">
+        <p class="btn-p">הוספת ספק</p>
+        <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
+    </a>
+</div>
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="thumbnail my-thumbnail">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
+                            <span class="glyphicon glyphicon-trash btn-span" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
+                            <span class="glyphicon glyphicon-pencil btn-span" aria-hidden="true"></span>
+                        </a>
                     </div>
                 </div>
-            }
+                <h4 class="item-name">
+                    @item.Name
+                </h4>
+                <img class="item-image" src=@System.String.Format("Images/Suppliers/{0}",item.PictureName) width="150px" height="150px">
+                <div class="caption">
+                    <p>
+                        <h4>
+                            מוצרים:
+                        </h4>
+                        <div class="well item-products">
+                            @{
+                                var productsArray = item.Products.ToArray();
+                                for (int i = 0; i < productsArray.Length; i++)
+                                {
+                                    @Html.DisplayFor(p => productsArray[i].Name);
+                                    if (i != productsArray.Length - 1)
+                                    {
+                                        @:,
+                                    }
+                                }
+                            }
+                        </div>
+                    </p>
+                </div>
+            </div>
         </div>
-        <br />
-    </div>
-</body>
-</html>
+    }
+</div>
+<br />
