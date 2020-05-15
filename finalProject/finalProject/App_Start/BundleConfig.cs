@@ -26,7 +26,7 @@ namespace finalProject
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/Products.css",
-                      "~/Content/Suppliers.css"));
+                      "~/Content/Suppliers.css",
                       "~/Content/Login.css",
                       "~/Content/home.css",
                       "~/Content/Register.css",
