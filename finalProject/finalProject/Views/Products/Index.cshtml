@@ -15,30 +15,7 @@
         <div class="search-fields">
             <div>
                 @Html.LabelFor(model => model.First().ProductType, new { @class = "control-label" })
-                <select id="productTypeFilter" name="ProductType" class="form-control">
-                    @{
-                        if (ViewData["ProductTypeField"] == null)
-                        {
-                            <option selected value="">ללא סינון</option>
-                        }
-                        else
-                        {
-                            <option value="">ללא סינון</option>
-                        }
-                        foreach (string productType in ViewBag.ProductTypes)
-                        {
-                            if (ViewData["ProductTypeField"] != null &&
-                                productType == ViewData["ProductTypeField"].ToString())
-                            {
-                                <option selected value="@productType">@productType</option>
-                            }
-                            else
-                            {
-                                <option value="@productType">@productType</option>
-                            }
-                        }
-                    }
-                </select>
+                @Html.DropDownList("ProductTypeId", null, String.Empty, new { @class = "form-control" })
             </div>
             <div>
                 @Html.LabelFor(model => model.First().Size, new { @class = "control-label" })
@@ -62,25 +39,6 @@
     <table class="products-table table table-striped table-hover">
         <thead>
             <tr style="width: 98%">
-                @*<th scope="col" style="width: 26.5%">
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th scope="col" style="width: 15%">
-            @Html.DisplayNameFor(model => model.Size)
-        </th>
-        <th scope="col" style="width: 15%">
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th scope="col" style="width: 15%">
-            @Html.DisplayNameFor(model => model.Supplier.Name)
-        </th>
-        <th scope="col" style="width: 15%">
-            @Html.DisplayNameFor(model => model.ProductType.Name)
-        </th>
-        <th scope="col">
-
-        </th>*@
-
                 <th scope="col" style="width: 12%">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -117,7 +75,7 @@
                     </td>
                     <td style="width: 15%">
                         <img style="height: 10vh;width: 6vw;"
-                             src=@System.String.Format("/Content/Images/{0}", item.PictureName) />
+                             src=@System.String.Format("/Images/Products/{0}", item.PictureName) />
                     </td>
                     <td style="width: 15.5%">
                         @Html.DisplayFor(modelItem => item.Size)
@@ -152,14 +110,3 @@
         </tbody>
     </table>
 </div>
-
-@*@section Scripts {
-    <script>
-        function deleteProduct() {
-            var options = { "backdrop": "static", keyboard: true };  
-            $('#myModalContent').html('Tomer Succeded showing modal');
-            $('#myModal').modal(options);
-            $('#myModal').modal('show');  
-        }
-    </script>
-}*@

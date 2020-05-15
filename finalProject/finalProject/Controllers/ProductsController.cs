@@ -14,31 +14,34 @@ namespace finalProject.Controllers
     public class ProductsController : Controller
     { 
         private readonly StoreContext _context = new StoreContext();
-        private const string _imagesPath = "~/Content/Images";
+        private const string _imagesPath = "~/Images/Products";
 
         // GET: Products
         public async Task<ActionResult> Index()
         {
             ViewData["Title"] = "מסך מוצרים";
-            ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
+            PopulateProductTypesList();
 
+            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
             return View(await _context.Products.ToListAsync());
         }
 
         [HttpPost]
-        public async Task<ActionResult> Search(string productType, int? size, string name)
+        public async Task<ActionResult> Search(int? ProductTypeId, int? size, string name)
         {
             ViewData["Title"] = "מסך מוצרים";
-            ViewData["ProductTypeField"] = productType;
+            //ViewData["ProductTypeField"] = productType;
             ViewData["NameField"] = name;
             ViewData["SizeField"] = size;
-            ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
+            ProductType productType = await _context.ProductTypes.FindAsync(ProductTypeId);
+            PopulateProductTypesList(productType);
+            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
 
             var items = _context.Products.Select(item => item);
 
-            if (!String.IsNullOrEmpty(productType))
+            if (productType != null)
             {
-                items = items.Where(s => s.ProductType.Name.Equals(productType));
+                items = items.Where(s => s.ProductType.Id == ProductTypeId);
             }
             if (size > 0)
             {
@@ -60,7 +63,7 @@ namespace finalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            ViewBag.Branches = _context.Branches.Select(branch => branch).ToList();
+            PopulateBranchesList();
 
             Purchase p = new Purchase
             {
@@ -120,8 +123,8 @@ namespace finalProject.Controllers
             //    return Unauthorized();
             //}
             ViewData["Title"] = "יצירת מוצר חדש";
-            ViewBag.Suppliers = _context.Suppliers.Select(supplier => supplier).ToList();
-            ViewBag.ProductTypes = _context.ProductTypes.Select(productType => productType).ToList();
+            PopulateSuppliersList();
+            PopulateProductTypesList();
             return View();
         }
 
@@ -227,8 +230,8 @@ namespace finalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            ViewBag.Suppliers = _context.Suppliers.Select(supplier => supplier).ToList();
-            ViewBag.ProductTypes = _context.ProductTypes.Select(productType => productType).ToList();
+            PopulateSuppliersList(product.SupplierId);
+            PopulateProductTypesList(product.ProductTypeId);
             return View(product);
         }
 
@@ -273,6 +276,30 @@ namespace finalProject.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void PopulateBranchesList(object selectedBranch = null)
+        {
+            var branchesQuery = from d in _context.Branches
+                                orderby d.City
+                                select d;
+            ViewBag.BranchId = new SelectList(branchesQuery, "Id", "City", selectedBranch);
+        }
+
+        private void PopulateProductTypesList(object selectedProductType = null)
+        {
+            var ProductTypeQuery = from d in _context.ProductTypes
+                                   orderby d.Name
+                                   select d;
+            ViewBag.ProductTypeId = new SelectList(ProductTypeQuery, "Id", "Name", selectedProductType);
+        }
+
+        private void PopulateSuppliersList(object selectedSupplier = null)
+        {
+            var suppliersQuery = from d in _context.Suppliers
+                                 orderby d.Name
+                                 select d;
+            ViewBag.SupplierId = new SelectList(suppliersQuery, "Id", "Name", selectedSupplier);
         }
     }
 }
