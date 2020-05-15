@@ -12,10 +12,11 @@ namespace finalProject.Models
 
         [Required]
         [StringLength(30)]
-        [DisplayName("חברה")]
+        [DisplayName("שם")]
         public string Name { get; set; }
 
         [StringLength(30)]
+        [DisplayName("תמונה")]
         public string PictureName { get; set; }
 
         [DisplayName("רשימת מוצרים")]

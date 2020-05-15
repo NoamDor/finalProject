@@ -30,6 +30,7 @@ namespace finalProject.Models
 
         public virtual List<Purchase> Purchases { get; set; }
 
+        [Required]
         public int? SupplierId { get; set; }
 
         [DisplayName("חברה")]

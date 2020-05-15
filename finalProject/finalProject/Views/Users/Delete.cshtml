@@ -1,0 +1,54 @@
+﻿@model finalProject.Models.User
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class='page-title-container'>
+    <h2 class='page-title'>מחיקת משתמש</h2>
+</div>
+
+<div class='form-container'>
+    <h3>האם אתה בטוח שברצונך למחוק משתמש זה?</h3>
+    @using (Html.BeginForm("Delete", "Users", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.LabelFor(model => model.Username, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Username)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Password)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Address)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Gender, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Gender)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Telephone, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.Telephone)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.IsAdmin, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.IsAdmin)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.BirthDate, new { @class = "form-label" })
+            @Html.DisplayFor(model => model.BirthDate)
+        </div>
+        <div class='form-group form-footer'>
+            <input type="hidden" value="@Model.Id" />
+            <input type="submit" value="מחק" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Users", null, new { @class = "full-list-action" })
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
