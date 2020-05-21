@@ -16,6 +16,7 @@ namespace finalProject.Data
             context.ProductTypes.RemoveRange(context.ProductTypes);
             context.Products.RemoveRange(context.Products);
             context.Branches.RemoveRange(context.Branches);
+            context.Purchases.RemoveRange(context.Purchases);
             context.SaveChanges();
 
             var users = new List<User>
@@ -128,6 +129,23 @@ namespace finalProject.Data
                 new Product{Name="נעליים אישה 2",PictureName="WomenShoes2.jpg",Price=259,ProductType=productTypes[5],Size=40,Supplier=suppliers[1]},
             };
 
+            var purchases = new List<Purchase>
+            {
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[0],Branch=branches[0],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[4],Branch=branches[1],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[20],Branch=branches[2],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[21],Branch=branches[3],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[40],Branch=branches[2],User=users[0]},
+                new Purchase{Count=3,Date=new DateTime(2020,9,22),Product=products[41],Branch=branches[0],User=users[0]},
+
+                new Purchase{Count=1,Date=new DateTime(2020,11,22),Product=products[8],Branch=branches[0],User=users[1]},
+                new Purchase{Count=2,Date=new DateTime(2020,8,23),Product=products[9],Branch=branches[1],User=users[1]},
+                new Purchase{Count=5,Date=new DateTime(2020,11,25),Product=products[10],Branch=branches[2],User=users[1]},
+                new Purchase{Count=3,Date=new DateTime(2020,7,12),Product=products[12],Branch=branches[3],User=users[1]},
+                new Purchase{Count=8,Date=new DateTime(2020,4,5),Product=products[13],Branch=branches[2],User=users[1]},
+                new Purchase{Count=3,Date=new DateTime(2020,5,15),Product=products[14],Branch=branches[0],User=users[1]},
+            };
+
             users.ForEach(user => context.Users.Add(user));
             context.SaveChanges();
 
@@ -141,6 +159,9 @@ namespace finalProject.Data
             context.SaveChanges();
 
             products.ForEach(product => context.Products.Add(product));
+            context.SaveChanges();
+
+            purchases.ForEach(purchase => context.Purchases.Add(purchase));
             context.SaveChanges();
         }
     }

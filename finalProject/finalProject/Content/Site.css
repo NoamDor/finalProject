@@ -145,7 +145,7 @@ img {
 .navbar {
     margin-bottom: 0;
     padding-top: 0;
-    background: #fff;
+    background: floralwhite;
     border: 0;
     -moz-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
@@ -210,7 +210,7 @@ ul.navbar-nav {
             color: #ddd;
         }
 
-/***** login and registration buttons *****/
+/***** login loout and registration buttons *****/
 
 ul.navbar-nav li a.btn {
     position: relative;
@@ -221,6 +221,18 @@ ul.navbar-nav li a.btn {
     color: #fff !important;
     border-radius: 6px;
 }
+
+ul.navbar-nav li a.btn-logout {
+    background: #db4b4b;
+}
+
+    ul.navbar-nav li a.btn-logout:hover,
+    ul.navbar-nav li a.btn-logout:focus,
+    ul.navbar-nav li a.btn-logout:active,
+    ul.navbar-nav li a.btn-logout:active:focus {
+        outline: 0;
+        background: #d04b4b;
+    }
 
 ul.navbar-nav li a.btn-login {
     background: #6eba3c;
@@ -421,21 +433,23 @@ footer {
     .top-content {
         padding: 40px 0 60px 0;
     }
-    height: 100%;
+    /*height: 100%;
     padding-top: 50px;
     padding-bottom: 20px;
-    font-family: 'Segoe UI';
+    font-family: 'Segoe UI';*/
 }
 
 @media (max-width: 415px) {
 
-    h1, h2 {
-        font-size: 36px;
-    }
-.body-content {
-    height: 100%;
-    overflow: hidden;
-    /*width: 100%;*/
+        h1, h2 {
+            font-size: 36px;
+        }
+        .body-content {
+            height: 100%;
+            overflow: hidden;
+            /*width: 100%;*/
+        }
+
 }
 
 
@@ -461,7 +475,7 @@ footer {
     direction: rtl;
 }
 
-.page-title {
+/*.page-title {
     margin-right: 10%;
     position: relative;
-}
+}*/

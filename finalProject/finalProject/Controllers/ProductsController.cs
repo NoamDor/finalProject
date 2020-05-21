@@ -204,11 +204,9 @@ namespace finalProject.Controllers
             }
 
             product.Purchases.ToList().ForEach(p => product.Purchases.Remove(p));
-            // delete the product image from fs
-            System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), product.PictureName));
-
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -258,17 +256,15 @@ namespace finalProject.Controllers
             {
                 try
                 {
-                    _context.Entry(productToUpdate).CurrentValues.SetValues(product);
-
                     // case the user put new image to update
                     if (file != null)
                     {
-                        // Delete old picture, save new one
-                        System.IO.File.Delete(Path.Combine(Server.MapPath(_imagesPath), product.PictureName));
-                        System.IO.File.Create(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
+                        // Save new picture
+                        file.SaveAs(Path.Combine(Server.MapPath(_imagesPath), file.FileName));
                         product.PictureName = file.FileName;
                     }
 
+                    _context.Entry(productToUpdate).CurrentValues.SetValues(product);
                     await _context.SaveChangesAsync();
 
                 }
