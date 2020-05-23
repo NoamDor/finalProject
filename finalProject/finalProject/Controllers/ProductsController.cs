@@ -82,10 +82,10 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Purchase([Bind(Include = "Count, Date, BranchId, ProductId, UserId")] Purchase purchase)
         {
-            //if (HttpContext.Session.GetString("isLogin") != "true")
-            //{
-            //    return Unauthorized();
-            //}
+            if (HttpContext.Session["isLogin"] != "true")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             if (ModelState.IsValid)
             {
@@ -118,10 +118,10 @@ namespace finalProject.Controllers
 
         public ActionResult Create()
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             ViewData["Title"] = "יצירת מוצר חדש";
             PopulateSuppliersList();
             PopulateProductTypesList();
@@ -132,10 +132,10 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(HttpPostedFileBase file, [Bind(Include = "Price,Name,Size,SupplierId,ProductTypeId")] Product product)
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             //if (file == null)
             //{
@@ -168,10 +168,10 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Delete(int? id)
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             ViewData["Title"] = "מחיקת מוצר";
             if (id == null)
@@ -192,10 +192,10 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -212,10 +212,10 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Edit(int? id)
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             ViewData["Title"] = "עריכת מוצר קיים";
 
@@ -240,10 +240,10 @@ namespace finalProject.Controllers
         public async Task<ActionResult> Edit(HttpPostedFileBase file,
                                             [Bind(Include = "Price,Name,Id,Size,PictureName,SupplierId,ProductTypeId")] Product product)
         {
-            //if (!IsAuthorized())
-            //{
-            //    return Unauthorized();
-            //}
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             Product productToUpdate = await _context.Products.FindAsync(product.Id);
 
@@ -300,6 +300,12 @@ namespace finalProject.Controllers
                                  orderby d.Name
                                  select d;
             ViewBag.SupplierId = new SelectList(suppliersQuery, "Id", "Name", selectedSupplier);
+        }
+
+        private bool IsAuthorized()
+        {
+            return (HttpContext.Session["isAdmin"] == "true" ? true : false) &&
+               (HttpContext.Session["isLogin"] == "true" ? true : false);
         }
     }
 }

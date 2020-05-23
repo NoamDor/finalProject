@@ -17,6 +17,11 @@ namespace finalProject.Controllers
         // GET: Users
         public async Task<ActionResult> Index(string Username, string Password, string Address)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             ViewData["Title"] = "מסך משתמשים";
             ViewData["BranchesUsernameQuery"] = Username;
             ViewData["BranchesPasswordQuery"] = Password;
@@ -44,6 +49,11 @@ namespace finalProject.Controllers
 
         public ActionResult Edit(int id)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             var user = _context.Users.Where(b => b.Id == id)
                                  .FirstOrDefault();
 
@@ -54,6 +64,11 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(User user)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             if (ModelState.IsValid)
             {
                 var userDb = _context.Users.Where(u => u.Id == user.Id)
@@ -73,6 +88,10 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             var user = _context.Users.Where(u => u.Id == id)
                                  .FirstOrDefault();
@@ -84,6 +103,11 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, User user)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             var userDb = _context.Users.Where(u => u.Id == id)
                           .FirstOrDefault();
             if (userDb == null)
@@ -167,5 +191,10 @@ namespace finalProject.Controllers
             return RedirectToAction("Index", "Home", null);
         }
 
+        private bool IsAuthorized()
+        {
+            return (HttpContext.Session["isAdmin"] == "true" ? true : false) &&
+               (HttpContext.Session["isLogin"] == "true" ? true : false);
+        }
     }
 }
