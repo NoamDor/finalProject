@@ -3,65 +3,121 @@
 }
 
 
-<div id="home-div" class="row">
+    <div id="home-div" class="row">
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <iframe id="youtube-embed" src="https://www.youtube.com/embed/dqiRflYXf2Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <div id="myCarousel" class="carousel slide col-lg-6 col-md-6 col-sm-6" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-
-            <div class="item active">
-                <img src="../../Images/items/1.jpg" alt="Los Angeles" style="width:100%;">
-                <div class="carousel-caption">
-                    <p>תיק גב אדידס</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="../../Images/items/2.jpg" alt="Chicago" style="width:100%;">
-                <div class="carousel-caption">
-                    <p>אולטרה בוסט אדידס</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <img src="../../Images/items/3.jpg" alt="New York" style="width:100%;">
-                <div class="carousel-caption">
-                    <p>סניקרס אדידס</p>
-                </div>
-            </div>
-
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <iframe id="youtube-embed" src="https://www.youtube.com/embed/dqiRflYXf2Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div id="myCarousel" class="carousel slide col-lg-6 col-md-6 col-sm-6" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+
+                <div class="item active">
+                    <img src="../../Images/items/1.jpg" alt="Los Angeles" style="width:100%;">
+                    <div class="carousel-caption">
+                        <p>תיק גב אדידס</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="../../Images/items/2.jpg" alt="Chicago" style="width:100%;">
+                    <div class="carousel-caption">
+                        <p>אולטרה בוסט אדידס</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img src="../../Images/items/3.jpg" alt="New York" style="width:100%;">
+                    <div class="carousel-caption">
+                        <p>סניקרס אדידס</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class='weather_details'>
+            <div class='degrees_and_img'>
+                <img id='weather_img' />
+                <div class='weather_degrees_container'>
+                    <div class='degrees_sign'>C°</div>
+                    <div id='weather_degrees' class='degrees'></div>
+                </div>
+            </div>
+            <div id='humidity'></div>
+            <div id='wind_speed'></div>
+        </div>
+
     </div>
-
-
-</div>
 
 <script src='~/Scripts/jquery-3.3.1.js'></script>
 <script>
     $(document).ready(function () {
         fetchPossibleProducts();
+        getLocation();
     })
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(fetchNearestBranch)
+        }
+    }
+
+    function fetchNearestBranch(position) {
+        $.ajax({
+            type: 'GET',
+            url: '/Home/NearestBranch',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: getWeather,
+            data: {
+                lng: position.coords.longitude,
+                lat: position.coords.latitude
+            }
+        })
+    }
+
+    function getWeather(branch) {
+        $.ajax({
+            url: 'http://api.openweathermap.org/data/2.5/weather',
+            data: {
+                lat: branch.lat,
+                lon: branch.long,
+                units: 'metric',
+                APPID: '50e5e552a74c7defcc7607a0fce0fdf6'
+            },
+            success: function (res) { showWeatherDetails(branch, res) }
+        })
+    }
+
+    function showWeatherDetails(branch, weather) {
+        $('#branch_name').html('הסניף הקרוב אלייך: ' + branch.name);
+        $('#branch_city').html(branch.city);
+        $('#branch_address').html(', ' + branch.address);
+        $('#branch_phone').html('טלפון: ' + branch.telephone);
+        $('#weather_degrees').html(weather.main.temp);
+        $('#humidity').html('לחות: ' + weather.main.humidity + '%');
+        $('#wind_speed').html('רוח: ' + weather.wind.speed + ' קמ"ש');
+        $('#weather_img').attr('src', 'http://openweathermap.org/img/w/' + weather.weather[0].icon + '.png');
+        $('.weather_container').css('visibility', 'visible');
+    }
 
     function fetchPossibleProducts() {
         $.ajax({

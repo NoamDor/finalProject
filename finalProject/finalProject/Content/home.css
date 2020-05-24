@@ -15,3 +15,32 @@
 .carousel-inner > .item > img {
     height: 300px;
 }
+
+.weather_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.degrees_and_img {
+    display: flex;
+    align-items: center;
+    margin-right: -16px;
+}
+
+#weather_img {
+    height: 75px;
+}
+
+.weather_degrees_container {
+    display: flex;
+    color: black;
+}
+
+.degrees_sign {
+    margin-top: 8px;
+}
+
+.degrees {
+    font-size: 36px;
+}
