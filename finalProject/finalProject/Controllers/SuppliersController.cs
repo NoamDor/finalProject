@@ -135,11 +135,11 @@ namespace finalProject.Controllers
             //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int SupplierID, Supplier suplier)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            var supplier = await _context.Suppliers.FindAsync(SupplierID);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
@@ -147,10 +147,10 @@ namespace finalProject.Controllers
             }
 
             supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
-            
+
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
