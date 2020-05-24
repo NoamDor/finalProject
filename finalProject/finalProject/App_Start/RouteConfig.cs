@@ -20,7 +20,7 @@ namespace finalProject
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            //StoreInitializer.Initialize(new StoreContext());
+            StoreInitializer.Initialize(new StoreContext());
         }
     }
 }
