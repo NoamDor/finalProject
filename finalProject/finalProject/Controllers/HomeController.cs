@@ -1,5 +1,4 @@
-﻿using finalProject.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +6,7 @@ using System.Web.Mvc;
 using Accord.MachineLearning;
 using Accord.Statistics.Filters;
 using GeoCoordinatePortable;
+using finalProject.Models;
 
 namespace finalProject.Controllers
 {
@@ -36,7 +36,7 @@ namespace finalProject.Controllers
         public JsonResult NearestBranch(float lat, float lng)
         {
             var coord = new GeoCoordinate(lat, lng);
-            var branches = _context.Branches.Select(x => new Models.Branch
+            var branches = _context.Branches.Select(x => new
             {
                 Id = x.Id,
                 Lat = x.Lat,
@@ -48,7 +48,7 @@ namespace finalProject.Controllers
 
             var nearestBranch = branches.OrderBy(x => new GeoCoordinate(x.Lat, x.Long).GetDistanceTo(coord))
                                    .First();
-            return Json(nearestBranch);
+            return Json(nearestBranch, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -225,7 +225,7 @@ namespace finalProject.Controllers
                 })
                 .ToList();
 
-            return Json(new { products = predictedProduct });
+            return Json(new { products = predictedProduct }, JsonRequestBehavior.AllowGet);
         }
     }
 }

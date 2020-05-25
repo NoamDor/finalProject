@@ -53,18 +53,30 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class='weather_details'>
-            <div class='degrees_and_img'>
-                <img id='weather_img' />
-                <div class='weather_degrees_container'>
-                    <div class='degrees_sign'>C°</div>
-                    <div id='weather_degrees' class='degrees'></div>
-                </div>
-            </div>
-            <div id='humidity'></div>
-            <div id='wind_speed'></div>
-        </div>
+    </div>
 
+    <div class="home_container_a">
+        <div class='weather_container'>
+            <div class='weather_details'>
+                <div class='degrees_and_img'>
+                    <img id='weather_img' />
+                    <div class='weather_degrees_container'>
+                        <div id='weather_degrees' class='degrees'></div>
+                        <div class='degrees_sign'>C°</div>
+                    </div>
+                </div>
+                <div id='humidity'></div>
+                <div id='wind_speed'></div>
+            </div>
+            <div class='weather_branch_details'>
+                <div id='branch_name'></div>
+                <div class='branch_address_container'>
+                    <div id='branch_city'></div>
+                    <div id='branch_address'></div>
+                </div>
+                <div id='branch_phone'></div>
+            </div>
+        </div>
     </div>
 
 <script src='~/Scripts/jquery-3.3.1.js'></script>
@@ -98,8 +110,8 @@
         $.ajax({
             url: 'http://api.openweathermap.org/data/2.5/weather',
             data: {
-                lat: branch.lat,
-                lon: branch.long,
+                lat: branch.Lat,
+                lon: branch.Long,
                 units: 'metric',
                 APPID: '50e5e552a74c7defcc7607a0fce0fdf6'
             },
@@ -108,10 +120,10 @@
     }
 
     function showWeatherDetails(branch, weather) {
-        $('#branch_name').html('הסניף הקרוב אלייך: ' + branch.name);
-        $('#branch_city').html(branch.city);
-        $('#branch_address').html(', ' + branch.address);
-        $('#branch_phone').html('טלפון: ' + branch.telephone);
+        $('#branch_name').html('הסניף הקרוב אלייך ');
+        $('#branch_city').html(branch.City);
+        $('#branch_address').html(', ' + branch.Address);
+        $('#branch_phone').html('טלפון: ' + branch.Telephone);
         $('#weather_degrees').html(weather.main.temp);
         $('#humidity').html('לחות: ' + weather.main.humidity + '%');
         $('#wind_speed').html('רוח: ' + weather.wind.speed + ' קמ"ש');
