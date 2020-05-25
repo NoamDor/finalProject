@@ -15,3 +15,77 @@
 .carousel-inner > .item > img {
     height: 300px;
 }
+
+.weather_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 25px;
+}
+
+.degrees_and_img {
+    display: flex;
+    align-items: center;
+    margin-right: -16px;
+}
+
+#weather_img {
+    height: 75px;
+}
+
+.weather_container {
+    width: 525px;
+    visibility: visible;
+    padding: 16px;
+    color: #878787;
+    font-size: 24px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+}
+
+.branch_address_container {
+    display: flex;
+}
+
+.weather_branch_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.weather_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.degrees_sign {
+    margin-top: 8px;
+}
+
+.degrees {
+    font-size: 36px;
+}
+
+.weather_degrees_container {
+    display: flex;
+    color: black;
+}
+
+.degrees_and_img {
+    display: flex;
+    align-items: center;
+    margin-right: -16px;
+}
+
+.home_container_a {
+    padding-left: 25%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+#weather_img {
+    height: 75px;
+}
