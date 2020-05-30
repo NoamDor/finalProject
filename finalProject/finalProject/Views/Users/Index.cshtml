@@ -58,7 +58,7 @@
                 </th>
                 <th scope="col" style="width: 5%">
                 </th>
-                <th scope="col" style="width: 7.5%">
+                <th scope="col" style="width: 5%">
                 </th>
             </tr>
         </thead>
@@ -99,14 +99,14 @@
                     }
                 </td>
                 <td style="width: 5%">
-                    <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px; margin-left: 3px">
-                        <span class="glyphicon glyphicon-edit" style="color: white; padding-top: 4px; padding-right: 2px"
+                    <div class="action-button btn btn-default">
+                        <span class="glyphicon glyphicon-edit" 
                               onclick="location.href='@Url.Action("Edit", "Users", new {Id=item.Id})'"></span>
                     </div>
                 </td>
-                <td style="width: 7.5%">
-                    <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px;">
-                        <span class="glyphicon glyphicon-trash" style="color: white; padding-top: 4px; padding-right: 2px"
+                <td style="width: 5%">
+                    <div class="action-button btn btn-default">
+                        <span class="glyphicon glyphicon-trash"
                               onclick="location.href='@Url.Action("Delete", "Users", new {Id=item.Id})'"></span>
                     </div>
                 </td>

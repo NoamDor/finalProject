@@ -1,11 +1,12 @@
-﻿using finalProject.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Accord.MachineLearning;
 using Accord.Statistics.Filters;
+using GeoCoordinatePortable;
+using finalProject.Models;
 
 namespace finalProject.Controllers
 {
@@ -32,16 +33,41 @@ namespace finalProject.Controllers
         }
 
         [HttpGet]
+        public JsonResult NearestBranch(float lat, float lng)
+        {
+            var coord = new GeoCoordinate(lat, lng);
+            var branches = _context.Branches.Select(x => new
+            {
+                Id = x.Id,
+                Lat = x.Lat,
+                Long = x.Long,
+                Address = x.Address,
+                City = x.City,
+                Telephone = x.Telephone
+            }).ToList();
+
+            var nearestBranch = branches.OrderBy(x => new GeoCoordinate(x.Lat, x.Long).GetDistanceTo(coord))
+                                   .First();
+            return Json(nearestBranch, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public JsonResult PredictPossibleProducts()
         {
-            //var userIdString = HttpContext.Session.GetString("userid");
-            var userIdString = "2";
             var userId = 0;
-            var didParsed = Int32.TryParse(userIdString, out userId);
             int knnNum = 5;
             int clusterNum = 4;
+            var userIdString = "";
 
-            if (!didParsed || userId == -1)
+            if (HttpContext.Session["userid"] == null)
+            {
+                return Json(new { errorCode = 1, errorMessage = "יוזר לא חוקי" });
+            }
+
+            userIdString = HttpContext.Session["userid"].ToString(); 
+            var didParsed = Int32.TryParse(userIdString, out userId);
+
+            if (!didParsed)
             {
                 return Json(new { errorCode = 1, errorMessage = "יוזר לא חוקי" });
             }
@@ -196,16 +222,15 @@ namespace finalProject.Controllers
                 .Where(x => productIdsPrediction.Contains(x.Id))
                 .Select(x => new
                 {
-                    id = x.Id,
-                    name = x.Name,
-                    price = x.Price,
-                    size = x.Size,
-                    picture = x.PictureName
-
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Size = x.Size,
+                    PictureName = x.PictureName
                 })
                 .ToList();
 
-            return Json(new { products = predictedProduct });
+            return Json(new { products = predictedProduct }, JsonRequestBehavior.AllowGet);
         }
     }
 }

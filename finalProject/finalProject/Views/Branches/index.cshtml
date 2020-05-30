@@ -95,13 +95,11 @@
                                 {
                                     <td>
                                         <div style="display: flex; justify-content: center;">
-                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px; margin-left: 3px">
-                                                <span class="glyphicon glyphicon-edit" style="color: white; padding-top: 4px; padding-right: 2px"
-                                                      onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                            <div class="action-button btn btn-default">
+                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
                                             </div>
-                                            <div style="width:25px; height: 25px; background-color: black; text-align: center; border-radius: 4px;">
-                                                <span class="glyphicon glyphicon-trash" style="color: white; padding-top: 4px; padding-right: 2px"
-                                                      onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
+                                            <div class="action-button btn btn-default">
+                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
                                             </div>
                                         </div>
                                     </td>
