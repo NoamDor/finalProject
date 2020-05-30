@@ -1,0 +1,43 @@
+﻿@model finalProject.Models.User
+@{
+    ViewData["Title"] = "התחברות";
+}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            התחברות
+        </div>
+        <!-- Login Form -->
+        @using (Html.BeginForm("LoginUser", "Users", FormMethod.Get,
+        new { enctype = "multipart/form-data", @id = "login-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "login-form-input fadeIn second", @placeholder = "שם משתמש" } })
+                <div dir="rtl">
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "login-form-input fadeIn third", @placeholder = "סיסמא" } })
+                <div dir="rtl">
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <input type="submit" class="login-button fadeIn fourth" value="התחבר">
+        }
+
+        <div id="formFooter">
+            <a class="underlineHover-register" href="/Users/Register" dir="rtl">עוד לא רשום לאתר ? לחץ להרשמה</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

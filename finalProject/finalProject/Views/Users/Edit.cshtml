@@ -1,0 +1,55 @@
+﻿@model finalProject.Models.User
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class='page_title_container'>
+    <h2 class='page_title'>עריכת משתמש</h2>
+</div>
+
+<div class='form-container'>
+    @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telephone, new { @class = "form-label" })
+            @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAdmin, new { @class = "form-label" })
+            @Html.EditorFor(model => model.IsAdmin)
+        </div>
+        <div class="form-group form_footer">
+            <input type="submit" value="עדכן" class="btn btn-default button" />
+        </div>
+    }
+
+
+    <button value="רענן" class="action-button btn btn-default" style="margin-top:18px; position: relative; right: 0px;"
+            onclick="location.href='@Url.Action("Index", "Users", new { City= "", Address= ""})'">
+        <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

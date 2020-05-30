@@ -1,0 +1,29 @@
+﻿@model finalProject.Models.Supplier
+
+<div class='page-title-container'>
+    <h2 class='page-title'>עריכת מוצר</h2>
+</div>
+
+<div class='form-container'>
+    <form action="@Url.Action("Edit")" class='form' method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+            <input name="Name" type="text" class="form-control" value="@Model.Name" />
+        </div>
+
+        <div class="form-group">
+            @*<b>במידה והשארת את שדה זה ריק, התמונה של המוצר תישאר כמו לפני העדכון</b>*@
+            @Html.LabelFor(model => model.PictureName, new { @class = "control-label" })
+            <input type="file" name="file" />
+        </div>
+        <input type="hidden" name="PictureName" value="@Model.PictureName" />
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <div class="form-group form-footer">
+            <input type="submit" value="עדכן" class="submit-form-button btn btn-default" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Suppliers", null, new { @class = "full-list-action" })
+        </div>
+    </form>
+</div>
+

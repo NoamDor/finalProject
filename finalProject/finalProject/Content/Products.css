@@ -1,0 +1,90 @@
+﻿.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.products-table {
+    direction: rtl;
+    max-height: 300px;
+    margin-top: 1%;
+    width: 100%;
+}
+
+.products-table th {
+    text-align: right;
+    font-size: 20px;
+}
+
+.products-table td {
+    vertical-align: middle !important;
+    font-size: 17px;
+}
+
+.products-table tr {
+    width: 100%;
+    display: table;
+}
+
+.products-table tbody {
+    display: block;
+    overflow-y: scroll;
+    text-align: right;
+    max-height: 525px;
+}
+
+.products-table thead {
+    /*display: block;*/
+}
+
+.search-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-fields {
+    display: flex;
+    direction: rtl;
+    justify-content: center;
+}
+
+.search-fields div {
+    margin-right: 1%;
+}
+
+.search-button-container {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end
+}
+
+.full-list-container {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.create-product-container {
+    position: relative;
+    float: right;
+    width: 64px;
+    height: 64px;
+    background: #FF4081;
+    border-radius: 32px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.action-button {
+    position: relative;
+    right: 20%;
+    margin: 5%;
+}
+
+.purchase-price {
+    font-size: 16px;
+}
