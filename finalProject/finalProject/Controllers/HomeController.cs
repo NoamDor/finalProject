@@ -54,14 +54,20 @@ namespace finalProject.Controllers
         [HttpGet]
         public JsonResult PredictPossibleProducts()
         {
-            //var userIdString = HttpContext.Session.GetString("userid");
-            var userIdString = "2";
             var userId = 0;
-            var didParsed = Int32.TryParse(userIdString, out userId);
             int knnNum = 5;
             int clusterNum = 4;
+            var userIdString = "";
 
-            if (!didParsed || userId == -1)
+            if (HttpContext.Session["userid"] == null)
+            {
+                return Json(new { errorCode = 1, errorMessage = "יוזר לא חוקי" });
+            }
+
+            userIdString = HttpContext.Session["userid"].ToString(); 
+            var didParsed = Int32.TryParse(userIdString, out userId);
+
+            if (!didParsed)
             {
                 return Json(new { errorCode = 1, errorMessage = "יוזר לא חוקי" });
             }
@@ -216,12 +222,11 @@ namespace finalProject.Controllers
                 .Where(x => productIdsPrediction.Contains(x.Id))
                 .Select(x => new
                 {
-                    id = x.Id,
-                    name = x.Name,
-                    price = x.Price,
-                    size = x.Size,
-                    picture = x.PictureName
-
+                    Id = x.Id,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Size = x.Size,
+                    PictureName = x.PictureName
                 })
                 .ToList();
 
