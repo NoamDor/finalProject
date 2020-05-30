@@ -1,11 +1,12 @@
-﻿using finalProject.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Accord.MachineLearning;
 using Accord.Statistics.Filters;
+using GeoCoordinatePortable;
+using finalProject.Models;
 
 namespace finalProject.Controllers
 {
@@ -29,6 +30,25 @@ namespace finalProject.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult NearestBranch(float lat, float lng)
+        {
+            var coord = new GeoCoordinate(lat, lng);
+            var branches = _context.Branches.Select(x => new
+            {
+                Id = x.Id,
+                Lat = x.Lat,
+                Long = x.Long,
+                Address = x.Address,
+                City = x.City,
+                Telephone = x.Telephone
+            }).ToList();
+
+            var nearestBranch = branches.OrderBy(x => new GeoCoordinate(x.Lat, x.Long).GetDistanceTo(coord))
+                                   .First();
+            return Json(nearestBranch, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -205,7 +225,7 @@ namespace finalProject.Controllers
                 })
                 .ToList();
 
-            return Json(new { products = predictedProduct });
+            return Json(new { products = predictedProduct }, JsonRequestBehavior.AllowGet);
         }
     }
 }
