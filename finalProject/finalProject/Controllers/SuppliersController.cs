@@ -165,7 +165,7 @@ namespace finalProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            var supplier = await _context.Suppliers.FindAsync(SupplierID);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
