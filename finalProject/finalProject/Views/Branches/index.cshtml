@@ -7,75 +7,92 @@
     ViewBag.Title = "Index";
 }
 
-    <div dir="rtl">
-        <div class="row">
-            <div class="col-lg-9 col-md-9"></div>
-            <div class="col-lg-2 col-md-2">
-                <button value="צור" class="action-button btn btn-default" style="margin: 27px 0 0 0;"
-                        onclick="location.href='@Url.Action("Create", "Branches", new {})'">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-            </div>
-            <div class="col-lg-1 col-md-1">
-                <h2>סניפים</h2>
-            </div>
-        </div>
-        <div style="display:inline-block; margin-top:20px;">
-            <form asp-action="Index" method="get" class="form-inline" style="display:inline; margin: 0 -90px 0 0;">
-                <div class="form-group">
-                    <div>@Html.DisplayNameFor(model => model.City)</div>
-                    <input type="text" name="City" class="form-control" value=@ViewData["BranchesCityQuery"]>
-                </div>
-                <div class="form-group">
-                    <div>@Html.DisplayNameFor(model => model.Address)</div>
-                    <input type="text" name="Address" class="form-control" value=@ViewData["BranchesAddressQuery"]>
-                </div>
-                <div class="form-group" style="margin:30px 0 0 0">
-                    <button type="submit" value="חפש" class="action-button btn btn-default">
-                        <span class="glyphicon glyphicon-search"></span>
+@{
+    var isAdmin = Context.Session["isAdmin"];
+    var userName = Context.Session["username"];
+    var isLogin = Context.Session["isLogin"];
+}
+
+<div dir="rtl">
+    <div class="row">
+        <div class="col-lg-9 col-md-9"></div>
+        @{
+            if (isAdmin != null && isAdmin.ToString() == "true")
+            {
+                <div class="col-lg-2 col-md-2">
+                    <button value="צור" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+                            onclick="location.href='@Url.Action("Create", "Branches", new {})'">
+                        <span class="glyphicon glyphicon-plus"></span>
                     </button>
                 </div>
-            </form>
-            <button value="רענן" class="action-button btn btn-default " style="margin: 30px -40px 0 0;"
-                    onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
-                <span class="glyphicon glyphicon-refresh"></span>
-            </button>
-        </div>
+            }
+        }
 
-        <div style="margin-top: 30px">
-            <div class="row">
-                <div class="col-lg-8 col-md-8" style="height: 350px;">
-                    <div style=" height: 100%; width: 100%;" id="map"></div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col" style="text-align: right">
-                                    @Html.DisplayNameFor(model => model.City)
-                                </th>
-                                <th scope="col" style="text-align: right">
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </th>
-                                <th scope="col" style="text-align: right">
-                                    @Html.DisplayNameFor(model => model.Telephone)
-                                </th>
-                                <th scope="col" style="text-align: right"></th>
-                            </tr>
-                        </thead>
-                        <tbody dir="rtl">
-                            @foreach (var item in Model)
-                            {
-                                <tr scope="row">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.City)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Telephone)
-                                    </td>
+        <div class="col-lg-1 col-md-1">
+            <h2>סניפים</h2>
+        </div>
+    </div>
+    <div style="display:inline-block; margin-top:20px">
+        <form asp-action="Index" method="get" class="form-inline" style="display:inline">
+            <div class="form-group">
+                <div>@Html.DisplayNameFor(model => model.City)</div>
+                <input type="text" name="City" class="form-control" value=@ViewData["BranchesCityQuery"]>
+            </div>
+            <div class="form-group">
+                <div>@Html.DisplayNameFor(model => model.Address)</div>
+                <input type="text" name="Address" class="form-control" value=@ViewData["BranchesAddressQuery"]>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="חפש" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </form>
+        <button value="רענן" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+                onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
+            <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+
+    </div>
+
+    <div style="margin-top:30px">
+        <div class="row">
+            <div class="col-lg-8 col-md-8" style="height: 200px">
+                aaa
+                <div style=" height: 100%; width: 50%;" id="map"></div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="text-align: right">
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th scope="col" style="text-align: right">
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th scope="col" style="text-align: right">
+                                @Html.DisplayNameFor(model => model.Telephone)
+                            </th>
+                            <th scope="col" style="text-align: right"></th>
+                        </tr>
+                    </thead>
+                    <tbody dir="rtl">
+                        @foreach (var item in Model)
+                        {
+                        <tr scope="row">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telephone)
+                            </td>
+                            @{
+                                if (isAdmin != null && isAdmin.ToString() == "true")
+                                {
                                     <td>
                                         <div style="display: flex; justify-content: center;">
                                             <div class="action-button btn btn-default">
@@ -86,17 +103,20 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                }
                             }
-                        </tbody>
-                    </table>
-                </div>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHAZzg-GFQtdb922AM04UgHnFcEcZs_dg&callback=initMap&language=iw&region=IL"
-            async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHAZzg-GFQtdb922AM04UgHnFcEcZs_dg&callback=initMap&language=iw&region=IL"
+        async defer></script>
 <script>
     var map;
     function initMap() {

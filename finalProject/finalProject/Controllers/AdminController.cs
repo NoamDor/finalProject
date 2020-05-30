@@ -30,6 +30,10 @@ namespace finalProject.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             return View();
         }
 
@@ -41,6 +45,11 @@ namespace finalProject.Controllers
         [HttpGet]
         public JsonResult BranchSales()
         {
+            if (!IsAuthorized())
+            {
+                var res = Json("you are not autorized for this request");
+                return res;
+            }
             try
             {
                 var result = _context.Purchases.Join(_context.Branches,
@@ -74,14 +83,13 @@ namespace finalProject.Controllers
         [HttpGet]
         public JsonResult ProductSales()
         {
+            if (!IsAuthorized())
+            {
+                var res = Json("you are not autorized for this request");
+                return res;
+            }
             try
             {
-                //if (!IsAuthorized())
-                //{
-                //    var res = Json("you are not autorized for this request");
-                //    res.StatusCode = 401;
-                //    return res;
-                //}
                 var result = _context.Purchases.Join(_context.Products,
                     (purchase => purchase.Product.Id),
                     (product => product.Id),
@@ -113,6 +121,11 @@ namespace finalProject.Controllers
         [HttpGet]
         public JsonResult SuppliersSales()
         {
+            if (!IsAuthorized())
+            {
+                var res = Json("you are not autorized for this request");
+                return res;
+            }
             try
             {
                 var result = _context.Purchases.Join(_context.Products,
@@ -140,6 +153,12 @@ namespace finalProject.Controllers
             }
 
             return null;
+        }
+
+        private bool IsAuthorized()
+        {
+            return (HttpContext.Session["isAdmin"] == "true" ? true : false) &&
+               (HttpContext.Session["isLogin"] == "true" ? true : false);
         }
     }
 }

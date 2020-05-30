@@ -1,13 +1,24 @@
 ﻿@model IEnumerable<finalProject.Models.Supplier>
 
+@{
+    var isAdmin = Context.Session["isAdmin"];
+    var userName = Context.Session["username"];
+    var isLogin = Context.Session["isLogin"];
+}
+
 <div>
     <div class='page-title-container'>
         <h1 class='page-title'>ספקים</h1>
     </div>
-    <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Suppliers")">
-        <p class="btn-p">הוספת ספק</p>
-        <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
-    </a>
+    @{
+        if (isAdmin != null && isAdmin.ToString() == "true")
+        {
+            <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Suppliers")">
+                <p class="btn-p">הוספת ספק</p>
+                <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
+            </a>
+        }
+    }
 </div>
 <br />
 <div class="row">
@@ -15,16 +26,21 @@
     {
         <div class="col-md-6">
             <div class="thumbnail my-thumbnail">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
-                            <span class="glyphicon glyphicon-trash btn-span" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
-                            <span class="glyphicon glyphicon-pencil btn-span" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
+                @{
+                    if (isAdmin != null && isAdmin.ToString() == "true")
+                    {
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Delete", "Suppliers", new { SupplierID = item.Id })">
+                                    <span class="glyphicon glyphicon-trash btn-span" aria-hidden="true"></span>
+                                </a>
+                                <a class="btn btn-default trans-btn" aria-label="Left Align" href="@Url.Action("Edit", "Suppliers", new { SupplierID = item.Id })">
+                                    <span class="glyphicon glyphicon-pencil btn-span" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
                 <h4 class="item-name">
                     @item.Name
                 </h4>
