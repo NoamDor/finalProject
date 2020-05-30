@@ -89,3 +89,43 @@
 #weather_img {
     height: 75px;
 }
+
+.predicted-products {
+    visibility: hidden;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    padding: 32px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    direction: rtl;
+}
+
+.predicted-products-table {
+    direction: rtl;
+    max-height: 300px;
+    margin-top: 1%;
+    width: 70%;
+    margin: auto;
+}
+
+.predicted-products-table th {
+    text-align: right;
+    font-size: 20px;
+}
+
+.predicted-products-table td {
+    vertical-align: middle !important;
+    font-size: 17px;
+    text-align: right;
+}
+
+.predicted-produtcs-table tr {
+    width: 100%;
+    display: table;
+}
+
+.predicted-produtcs-table tbody {
+    display: block;
+    overflow-y: scroll;
+    text-align: right;
+    max-height: 525px;
+}
