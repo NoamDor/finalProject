@@ -11,7 +11,7 @@
     /*
         Background slideshow
     */
-    $('.top-content').backstretch("../Images/backgrounds/1.jpg");
+    $('.top-content').backstretch("http://localhost:55533/Images/backgrounds/1.jpg");
 
     $('#top-navbar-1').on('shown.bs.collapse', function () {
         $('.top-content').backstretch("resize");
