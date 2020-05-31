@@ -1,14 +1,26 @@
 ﻿@model IEnumerable<finalProject.Models.Product>
 
+@{
+    var isAdmin = Context.Session["isAdmin"];
+    var userName = Context.Session["username"];
+    var isLogin = Context.Session["isLogin"];
+}
+
+
 <div class='page-title-container'>
     <h2 class='page-title'>מוצרים</h2>
 </div>
 
-@*<div class="create-product-container">
-        <button class="action-button btn btn-secondary" title="הוסף">
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-    </div>*@
+@{
+    if (isAdmin != null && isAdmin.ToString() == "true")
+    {
+        @*<div class="create-product-container">
+                <button class="action-button btn btn-secondary" title="הוסף">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>*@
+    }
+}
 
 <div class="page-container">
     <form class="search-form" action="@Url.Action("Search")" method="post">
@@ -63,49 +75,60 @@
                 <th scope="col" style="width: 7.5%">
 
                 </th>
-            </tr>
+            </tr>   
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td style="width: 12%">
-                        @Html.DisplayFor(modelItem => item.Name)
+            <tr>
+                <td style="width: 12%">
+                    @Html.DisplayFor(modelItem => item.Name)
 
-                    </td>
-                    <td style="width: 15%">
-                        <img style="height: 10vh;width: 6vw;"
-                             src=@System.String.Format("/Images/Products/{0}", item.PictureName) />
-                    </td>
-                    <td style="width: 15.5%">
-                        @Html.DisplayFor(modelItem => item.Size)
-                    </td>
-                    <td style="width: 15%">
-                        @Html.DisplayFor(modelItem => item.Price)&#8362;
-                    </td>
-                    <td style="width: 15%">
-                        @Html.DisplayFor(modelItem => item.Supplier.Name)
-                    </td>
-                    <td style="width: 15%">
-                        @Html.DisplayFor(modelItem => item.ProductType.Name)
-                    </td>
-                    <td style="width: 5%">
-                        <button onclick='location.href ="@Url.Action("Purchase", "Products", new { id = @item.Id })"'
-                                class="action-button btn btn-default" title="רכוש">
-                            <span class="glyphicon glyphicon-shopping-cart"></span>
-                        </button>
-                    </td>
-                    <td style="width: 7.5%">
-                        <button onclick='location.href ="@Url.Action("Delete", "Products", new { id = @item.Id })"' 
-                                class="action-button btn btn-default" title="מחק">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        <button onclick='location.href ="@Url.Action("Edit", "Products", new { id = @item.Id })"' 
-                                class="action-button btn btn-default" title="ערוך">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </td>
-                </tr>
+                </td>
+                <td style="width: 15%">
+                    <img style="height: 10vh;width: 6vw;"
+                         src=@System.String.Format("/Images/Products/{0}", item.PictureName) />
+                </td>
+                <td style="width: 15.5%">
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td style="width: 15%">
+                    @Html.DisplayFor(modelItem => item.Price)&#8362;
+                </td>
+                <td style="width: 15%">
+                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                </td>
+                <td style="width: 15%">
+                    @Html.DisplayFor(modelItem => item.ProductType.Name)
+                </td>
+                @{
+                    if (isLogin != null && isLogin.ToString() == "true")
+                    {
+                        <td style="width: 5%">
+                            <button onclick='location.href ="@Url.Action("Purchase", "Products", new { id = @item.Id })"'
+                                    class="action-button btn btn-default" title="רכוש">
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                            </button>
+                        </td>
+                    }
+                }
+                @{
+                    if (isAdmin != null && isAdmin.ToString() == "true")
+                    {
+                        <td style="width: 7.5%">
+                            <button onclick='location.href ="@Url.Action("Delete", "Products", new { id = @item.Id })"'
+                                    class="action-button btn btn-default" title="מחק">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                            <button onclick='location.href ="@Url.Action("Edit", "Products", new { id = @item.Id })"'
+                                    class="action-button btn btn-default" title="ערוך">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                    }
+                }
+
+            </tr>
             }
         </tbody>
     </table>

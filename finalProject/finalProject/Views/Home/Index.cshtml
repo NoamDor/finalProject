@@ -79,6 +79,10 @@
         </div>
     </div>
 
+    <div class='predicted-products'>
+
+    </div>
+
 <script src='~/Scripts/jquery-3.3.1.js'></script>
 <script>
     $(document).ready(function () {
@@ -137,7 +141,40 @@
             url: '/Home/PredictPossibleProducts',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: {}
+            success: displayProducts
         })
+    }
+
+    function displayProducts(res) {
+        if (res.errorCode || res.products.length <= 0) {
+            $('.predicted-products').html('אין מספיק נתונים כדי להציע לך מוצרים');
+        } else {
+            var content = '<div>אנחנו בספורטסטאר עושים הכל כדי להביא לכם את המוצרים שמתאימים לכם. הנה כמה מוצרים שיכולים לעניין אותך:</div></br></br>'
+            content += '<table class="predicted-products-table table table-striped table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th scope="col" style="width: 10%">שם</th>' +
+                '<th scope="col" style="width: 15%"></th>' +
+                '<th scope="col" style="width: 15%">מידה</th>' +
+                '<th scope="col" style="width: 15%">מחיר</th>' +
+                '<th scope="col" style="width: 20%"></th>' +
+                '</tr>' +
+                '</thead>';
+
+            res.products.forEach(x => {
+                content += '<tr>' +
+                    '<td style="width: 10%">' + x.Name + '</td>' +
+                    '<td style="width: 15%"><img style="height: 10vh;width: 6vw;" src="/Images/Products/' + x.PictureName + '" /></td>' +
+                    '<td style="width: 15%">' + x.Size + '</td>' +
+                    '<td style="width: 15%">' + x.Price + '</td>' +
+                    '<td style="width: 20%"><a class="action-button btn btn-default" style="width:5vw" href="http://localhost:55533/Products/Purchase/' + x.Id + '">רכוש</a></td>'
+                '</tr>';
+            });
+
+            content += '</table>';
+
+            $('.predicted-products').html(content);
+        }
+        $('.predicted-products').css('visibility', 'visible');
     }
 </script>

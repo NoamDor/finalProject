@@ -7,6 +7,7 @@ using finalProject.Data;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using finalProject.Models;
+using System.Net;
 
 namespace finalProject.Controllers
 {
@@ -17,6 +18,7 @@ namespace finalProject.Controllers
         // GET: Branches
         public async Task<ActionResult> Index(string City, string Address)
         {
+
             ViewData["BranchesCityQuery"] = City;
             ViewData["BranchesAddressQuery"] = Address;
 
@@ -38,12 +40,21 @@ namespace finalProject.Controllers
         // GET: Branches/Create
         public ActionResult Create()
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Branch branch)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             if (ModelState.IsValid)
             {
                 var branches = _context.Branches.Add(branch);
@@ -55,6 +66,11 @@ namespace finalProject.Controllers
 
         public ActionResult Edit(int id)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             var branch = _context.Branches.Where(b => b.Id == id)
                                  .FirstOrDefault();
 
@@ -65,6 +81,11 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Branch branch)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             if (ModelState.IsValid)
             {
                 var branchDb = _context.Branches.Where(b => b.Id == branch.Id)
@@ -85,6 +106,10 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             var branch = _context.Branches.Where(b => b.Id == id)
                                  .FirstOrDefault();
@@ -96,6 +121,11 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, Branch branch)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             var branchDb = _context.Branches.Where(b => b.Id == id)
                           .FirstOrDefault();
             if(branchDb == null)
@@ -106,6 +136,12 @@ namespace finalProject.Controllers
             _context.Branches.Remove(branchDb);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private bool IsAuthorized()
+        {
+            return (HttpContext.Session["isAdmin"] == "true" ? true : false) &&
+               (HttpContext.Session["isLogin"] == "true" ? true : false);
         }
 
     }

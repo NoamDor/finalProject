@@ -144,6 +144,27 @@ namespace finalProject.Data
                 new Purchase{Count=3,Date=new DateTime(2020,7,12),Product=products[12],Branch=branches[3],User=users[1]},
                 new Purchase{Count=8,Date=new DateTime(2020,4,5),Product=products[13],Branch=branches[2],User=users[1]},
                 new Purchase{Count=3,Date=new DateTime(2020,5,15),Product=products[14],Branch=branches[0],User=users[1]},
+
+                new Purchase{Count=2,Date=new DateTime(2020,11,22),Product=products[16],Branch=branches[1],User=users[2]},
+                new Purchase{Count=4,Date=new DateTime(2020,8,23),Product=products[18],Branch=branches[2],User=users[2]},
+                new Purchase{Count=3,Date=new DateTime(2020,11,25),Product=products[20],Branch=branches[1],User=users[2]},
+                new Purchase{Count=1,Date=new DateTime(2020,7,12),Product=products[24],Branch=branches[0],User=users[2]},
+                new Purchase{Count=7,Date=new DateTime(2020,4,5),Product=products[19],Branch=branches[3],User=users[2]},
+                new Purchase{Count=4,Date=new DateTime(2020,5,15),Product=products[26],Branch=branches[2],User=users[2]},
+
+                new Purchase{Count=3,Date=new DateTime(2020,11,22),Product=products[32],Branch=branches[2],User=users[3]},
+                new Purchase{Count=2,Date=new DateTime(2020,8,23),Product=products[34],Branch=branches[2],User=users[3]},
+                new Purchase{Count=4,Date=new DateTime(2020,11,25),Product=products[36],Branch=branches[1],User=users[3]},
+                new Purchase{Count=1,Date=new DateTime(2020,7,12),Product=products[38],Branch=branches[0],User=users[3]},
+                new Purchase{Count=2,Date=new DateTime(2020,4,5),Product=products[40],Branch=branches[3],User=users[3]},
+                new Purchase{Count=1,Date=new DateTime(2020,5,15),Product=products[41],Branch=branches[3],User=users[3]},
+
+                new Purchase{Count=2,Date=new DateTime(2020,11,22),Product=products[8],Branch=branches[0],User=users[4]},
+                new Purchase{Count=5,Date=new DateTime(2020,8,23),Product=products[9],Branch=branches[2],User=users[4]},
+                new Purchase{Count=1,Date=new DateTime(2020,11,25),Product=products[10],Branch=branches[1],User=users[4]},
+                new Purchase{Count=1,Date=new DateTime(2020,7,12),Product=products[12],Branch=branches[1],User=users[4]},
+                new Purchase{Count=2,Date=new DateTime(2020,4,5),Product=products[13],Branch=branches[3],User=users[4]},
+                new Purchase{Count=3,Date=new DateTime(2020,5,15),Product=products[14],Branch=branches[3],User=users[4]},
             };
 
             users.ForEach(user => context.Users.Add(user));
