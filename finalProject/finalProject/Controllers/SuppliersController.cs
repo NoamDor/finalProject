@@ -14,7 +14,7 @@ namespace finalProject.Controllers
     public class SuppliersController : Controller
     {
         private readonly StoreContext _context = new StoreContext();
-        private const string _imagesPath = "~/Content/Images";
+        private const string _imagesPath = "~/Images/Suppliers";
 
         public SuppliersController()
         {
