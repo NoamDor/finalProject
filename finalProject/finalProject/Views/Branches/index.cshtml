@@ -80,33 +80,31 @@
                     <tbody dir="rtl">
                         @foreach (var item in Model)
                         {
-                        <tr scope="row">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.City)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Telephone)
-                            </td>
-                            @{
-                                if (isAdmin != null && isAdmin.ToString() == "true")
-                                {
-                                    <td>
+                            <tr scope="row">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telephone)
+                                </td>
+                                <td>
+                                    @if (isAdmin != null && isAdmin.ToString() == "true")
+                                    {
                                         <div style="display: flex; justify-content: center;">
                                             <div class="action-button btn btn-default">
-                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new { Id = item.Id })'"></span>
                                             </div>
                                             <div class="action-button btn btn-default">
-                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
+                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new { Id = item.Id })'"></span>
                                             </div>
                                         </div>
-                                    </td>
-                                }
-                            }
+                                    }
+                                </td>
 
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
