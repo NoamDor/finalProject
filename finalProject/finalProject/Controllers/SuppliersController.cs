@@ -14,7 +14,7 @@ namespace finalProject.Controllers
     public class SuppliersController : Controller
     {
         private readonly StoreContext _context = new StoreContext();
-        private const string _imagesPath = "~/Content/Images";
+        private const string _imagesPath = "~/Images/Suppliers";
 
         public SuppliersController()
         {
@@ -30,6 +30,10 @@ namespace finalProject.Controllers
         // GET: Suppliers/Create
         public ActionResult Create()
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             return View();
         }
 
@@ -38,6 +42,10 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(HttpPostedFileBase file, Supplier supplier)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             if (ModelState.IsValid)
             {
                 if (file.FileName != null)
@@ -62,6 +70,10 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Edit(int? SupplierID)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             if (SupplierID == null)
             {
@@ -83,6 +95,10 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(HttpPostedFileBase file, Supplier supplier)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
 
             Supplier supplierToUpdate = await _context.Suppliers.FindAsync(supplier.Id);
 
@@ -119,6 +135,11 @@ namespace finalProject.Controllers
 
         public async Task<ActionResult> Delete(int? SupplierID)
         {
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             if (SupplierID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -135,11 +156,16 @@ namespace finalProject.Controllers
             //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int SupplierID, Supplier suplier)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            var supplier = await _context.Suppliers.FindAsync(SupplierID);
+            if (!IsAuthorized())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
@@ -147,10 +173,16 @@ namespace finalProject.Controllers
             }
 
             supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
-            
+
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool IsAuthorized()
+        {
+            return (HttpContext.Session["isAdmin"] == "true" ? true : false) &&
+               (HttpContext.Session["isLogin"] == "true" ? true : false); 
         }
     }
 }

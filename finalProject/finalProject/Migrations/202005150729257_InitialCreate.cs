@@ -26,10 +26,10 @@ namespace finalProject.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Date = c.DateTime(nullable: false),
-                        ProductId = c.Int(nullable: false),
+                        ProductId = c.Int(nullable: true),
                         Count = c.Int(nullable: false),
-                        UserId = c.Int(nullable: false),
-                        BranchId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: true),
+                        BranchId = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Product", t => t.ProductId, cascadeDelete: true)
@@ -48,7 +48,7 @@ namespace finalProject.Migrations
                         Size = c.Int(nullable: false),
                         Price = c.Double(nullable: false),
                         PictureName = c.String(),
-                        SupplierId = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: true),
                         ProductTypeId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
