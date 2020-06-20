@@ -172,8 +172,6 @@ namespace finalProject.Controllers
                 return HttpNotFound();
             }
 
-            supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
-
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
