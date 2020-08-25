@@ -32,7 +32,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             return View();
         }

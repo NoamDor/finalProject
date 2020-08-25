@@ -84,7 +84,7 @@ namespace finalProject.Controllers
         {
             if (HttpContext.Session["isLogin"] != "true")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return RedirectToAction("Login", "User", null);
             }
 
             if (ModelState.IsValid)
@@ -120,7 +120,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             ViewData["Title"] = "יצירת מוצר חדש";
             PopulateSuppliersList();
@@ -170,7 +170,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             ViewData["Title"] = "מחיקת מוצר";
@@ -194,7 +194,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             var product = await _context.Products.FindAsync(id);
@@ -214,7 +214,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             ViewData["Title"] = "עריכת מוצר קיים";
@@ -242,7 +242,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             Product productToUpdate = await _context.Products.FindAsync(product.Id);
