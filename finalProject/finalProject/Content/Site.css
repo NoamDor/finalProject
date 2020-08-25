@@ -90,6 +90,7 @@ img {
 .medium-paragraph {
     font-size: 18px;
     line-height: 34px;
+    background-color: brown;
 }
 
 .colored {
@@ -479,3 +480,8 @@ footer {
     margin-right: 10%;
     position: relative;
 }*/
+
+@font-face {
+    font-family: "headerFont";
+    src: url('../fonts/Dead Revolution.otf');
+}

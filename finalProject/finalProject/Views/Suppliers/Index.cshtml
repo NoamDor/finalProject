@@ -4,6 +4,7 @@
     var isAdmin = Context.Session["isAdmin"];
     var userName = Context.Session["username"];
     var isLogin = Context.Session["isLogin"];
+    ViewBag.Title = "ספקים";
 }
 
 <div>
@@ -41,14 +42,16 @@
                         </div>
                     }
                 }
-                <h4 class="item-name">
-                    @item.Name
-                </h4>
-                <img class="item-image" src=@System.String.Format("Images/Suppliers/{0}",item.PictureName) width="150px" height="150px">
+                <aside class="supplier-pic">
+                    <h4 class="item-name">
+                        @item.Name
+                    </h4>
+                    <img class="item-image" src=@System.String.Format("Images/Suppliers/{0}",item.PictureName) width="150px" height="150px">
+                </aside>
                 <div class="caption">
                     <p>
                         <h4>
-                            מוצרים:
+                            מוצרים
                         </h4>
                         <div class="well item-products">
                             @{
