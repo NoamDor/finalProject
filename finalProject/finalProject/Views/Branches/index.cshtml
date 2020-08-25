@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<finalProject.Models.Branch>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = Context.Session["isAdmin"];
+    var userName = Context.Session["username"];
+    var isLogin = Context.Session["isLogin"];
 }
 
 @{
@@ -11,10 +14,13 @@
     <div class="row">
         <div class="col-lg-9 col-md-9"></div>
         <div class="col-lg-2 col-md-2">
-            <button value="צור" class="action-button btn btn-default" style="margin: 27px 0 0 0;"
-                    onclick="location.href='@Url.Action("Create", "Branches", new {})'">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
+            @if (isAdmin != null && isAdmin.ToString() == "true")
+            {
+                <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Branches")">
+                    <p class="btn-p">הוספת סניף</p>
+                    <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
+                </a>
+            }
         </div>
         <div class="col-lg-1 col-md-1">
             <h2>סניפים</h2>
@@ -31,12 +37,12 @@
                 <input type="text" name="Address" class="form-control" value=@ViewData["BranchesAddressQuery"]>
             </div>
             <div class="form-group" style="margin:30px 0 0 0">
-                <button type="submit" value="חפש" class="action-button btn btn-default">
+                <button type="submit" title="חפש" class="action-button btn btn-default">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
         </form>
-        <button value="רענן" class="action-button btn btn-default " style="margin: 30px -40px 0 0;"
+        <button title="רענן" class="action-button btn btn-default " style="margin: 30px -40px 0 0;"
                 onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
             <span class="glyphicon glyphicon-refresh"></span>
         </button>
@@ -77,14 +83,17 @@
                                     @Html.DisplayFor(modelItem => item.Telephone)
                                 </td>
                                 <td>
-                                    <div style="display: flex; justify-content: center;">
-                                        <div class="action-button btn btn-default">
-                                            <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                    @if (isAdmin != null && isAdmin.ToString() == "true")
+                                    {
+                                        <div style="display: flex; justify-content: center;" title="ערוך">
+                                            <div class="action-button btn btn-default">
+                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new { Id = item.Id })'"></span>
+                                            </div>
+                                            <div class="action-button btn btn-default" title="מחק">
+                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new { Id = item.Id })'"></span>
+                                            </div>
                                         </div>
-                                        <div class="action-button btn btn-default">
-                                            <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
-                                        </div>
-                                    </div>
+                                    }
                                 </td>
                             </tr>
                         }

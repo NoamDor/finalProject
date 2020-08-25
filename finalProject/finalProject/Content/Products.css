@@ -1,10 +1,4 @@
-﻿.page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.products-table {
+﻿.products-table {
     direction: rtl;
     margin-top: 1%;
     width: 100%;
@@ -32,12 +26,7 @@
     max-height: 525px;
 }
 
-.products-table thead {
-    /*display: block;*/
-}
-
 .search-form {
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,4 +75,9 @@
 
 .purchase-price {
     font-size: 16px;
+}
+
+.add-product-container {
+    position: relative;
+    left: 38%;
 }
