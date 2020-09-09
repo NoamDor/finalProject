@@ -19,13 +19,13 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             ViewData["Title"] = "מסך משתמשים";
-            ViewData["BranchesUsernameQuery"] = Username;
-            ViewData["BranchesPasswordQuery"] = Password;
-            ViewData["BranchesAddressQuery"] = Address;
+            ViewData["Username"] = Username;
+            ViewData["Password"] = Password;
+            ViewData["Address"] = Address;
 
             var users = _context.Users.Select(x => x);
 
@@ -51,7 +51,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             var user = _context.Users.Where(b => b.Id == id)
@@ -66,7 +66,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             if (ModelState.IsValid)
@@ -76,6 +76,7 @@ namespace finalProject.Controllers
                 userDb.Username = user.Username;
                 userDb.Address = user.Address;
                 userDb.Password = user.Password;
+                userDb.Telephone = user.Telephone;
                 userDb.IsAdmin = user.IsAdmin;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -90,7 +91,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             var user = _context.Users.Where(u => u.Id == id)
@@ -105,7 +106,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             var userDb = _context.Users.Where(u => u.Id == id)

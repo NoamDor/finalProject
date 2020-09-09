@@ -34,6 +34,7 @@ namespace finalProject.Models
 
         [Required]
         [DisplayName("תאריך לידה")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         [Required]

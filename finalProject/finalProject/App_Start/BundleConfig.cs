@@ -30,7 +30,9 @@ namespace finalProject
                       "~/Content/Login.css",
                       "~/Content/home.css",
                       "~/Content/Register.css",
-                      "~/Content/Products.css"));
+                      "~/Content/Products.css",
+                      "~/Content/Unauthorized.css"
+                      ));
         }
     }
 }

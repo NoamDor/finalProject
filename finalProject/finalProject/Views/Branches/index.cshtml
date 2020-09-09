@@ -1,39 +1,33 @@
 ﻿@model IEnumerable<finalProject.Models.Branch>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
-    ViewBag.Title = "Index";
-}
-
-@{
     var isAdmin = Context.Session["isAdmin"];
     var userName = Context.Session["username"];
     var isLogin = Context.Session["isLogin"];
 }
 
+@{
+    ViewBag.Title = "סניפים";
+}
+
 <div dir="rtl">
     <div class="row">
         <div class="col-lg-9 col-md-9"></div>
-        @{
-            if (isAdmin != null && isAdmin.ToString() == "true")
+        <div class="col-lg-2 col-md-2">
+            @if (isAdmin != null && isAdmin.ToString() == "true")
             {
-                <div class="col-lg-2 col-md-2">
-                    <button value="צור" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
-                            onclick="location.href='@Url.Action("Create", "Branches", new {})'">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
+                <a class="btn btn-default btn-lg create-btn" aria-label="Left Align" href="@Url.Action("Create", "Branches")">
+                    <p class="btn-p">הוספת סניף</p>
+                    <span class="glyphicon glyphicon-plus btn-span" aria-hidden="true"></span>
+                </a>
             }
-        }
-
+        </div>
         <div class="col-lg-1 col-md-1">
             <h2>סניפים</h2>
         </div>
     </div>
-    <div style="display:inline-block; margin-top:20px">
-        <form asp-action="Index" method="get" class="form-inline" style="display:inline">
+    <div style="display:inline-block; margin-top:20px;">
+        <form asp-action="Index" method="get" class="form-inline" style="display:inline; margin: 0 -90px 0 0;">
             <div class="form-group">
                 <div>@Html.DisplayNameFor(model => model.City)</div>
                 <input type="text" name="City" class="form-control" value=@ViewData["BranchesCityQuery"]>
@@ -42,24 +36,22 @@
                 <div>@Html.DisplayNameFor(model => model.Address)</div>
                 <input type="text" name="Address" class="form-control" value=@ViewData["BranchesAddressQuery"]>
             </div>
-            <div class="form-group">
-                <button type="submit" value="חפש" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;">
+            <div class="form-group" style="margin:30px 0 0 0">
+                <button type="submit" title="חפש" class="action-button btn btn-default">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
         </form>
-        <button value="רענן" class="btn btn-dark" style="background-color: black; color:white; margin-top:18px;"
+        <button title="רענן" class="action-button btn btn-default " style="margin: 30px -40px 0 0;"
                 onclick="location.href='@Url.Action("Index", "Branches", new { City= "", Address= ""})'">
             <span class="glyphicon glyphicon-refresh"></span>
         </button>
-
     </div>
 
-    <div style="margin-top:30px">
+    <div style="margin-top: 30px">
         <div class="row">
-            <div class="col-lg-8 col-md-8" style="height: 200px">
-                aaa
-                <div style=" height: 100%; width: 50%;" id="map"></div>
+            <div class="col-lg-8 col-md-8" style="height: 350px;">
+                <div style=" height: 100%; width: 100%;" id="map"></div>
             </div>
             <div class="col-lg-4 col-md-4">
                 <table class="table">
@@ -80,33 +72,30 @@
                     <tbody dir="rtl">
                         @foreach (var item in Model)
                         {
-                        <tr scope="row">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.City)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Telephone)
-                            </td>
-                            @{
-                                if (isAdmin != null && isAdmin.ToString() == "true")
-                                {
-                                    <td>
-                                        <div style="display: flex; justify-content: center;">
+                            <tr scope="row">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telephone)
+                                </td>
+                                <td>
+                                    @if (isAdmin != null && isAdmin.ToString() == "true")
+                                    {
+                                        <div style="display: flex; justify-content: center;" title="ערוך">
                                             <div class="action-button btn btn-default">
-                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new {Id=item.Id})'"></span>
+                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new { Id = item.Id })'"></span>
                                             </div>
-                                            <div class="action-button btn btn-default">
-                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new {Id=item.Id})'"></span>
+                                            <div class="action-button btn btn-default" title="מחק">
+                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new { Id = item.Id })'"></span>
                                             </div>
                                         </div>
-                                    </td>
-                                }
-                            }
-
-                        </tr>
+                                    }
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

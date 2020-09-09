@@ -14,7 +14,7 @@ namespace finalProject.Controllers
     public class SuppliersController : Controller
     {
         private readonly StoreContext _context = new StoreContext();
-        private const string _imagesPath = "~/Content/Images";
+        private const string _imagesPath = "~/Images/Suppliers";
 
         public SuppliersController()
         {
@@ -32,7 +32,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             return View();
         }
@@ -44,7 +44,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             if (SupplierID == null)
@@ -97,7 +97,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             Supplier supplierToUpdate = await _context.Suppliers.FindAsync(supplier.Id);
@@ -137,7 +137,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             if (SupplierID == null)
@@ -162,17 +162,15 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
-            var supplier = await _context.Suppliers.FindAsync(SupplierID);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
                 return HttpNotFound();
             }
-
-            supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
 
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
