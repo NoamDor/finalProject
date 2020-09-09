@@ -14,7 +14,7 @@ namespace finalProject.Controllers
     public class SuppliersController : Controller
     {
         private readonly StoreContext _context = new StoreContext();
-        private const string _imagesPath = "~/Content/Images";
+        private const string _imagesPath = "~/Images/Suppliers";
 
         public SuppliersController()
         {
@@ -32,7 +32,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             return View();
         }
@@ -44,7 +44,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             if (ModelState.IsValid)
             {
@@ -72,18 +72,18 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             if (SupplierID == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
             if (supplier == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
@@ -97,14 +97,14 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             Supplier supplierToUpdate = await _context.Suppliers.FindAsync(supplier.Id);
 
             if (supplierToUpdate == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             if (ModelState.IsValid)
@@ -137,18 +137,18 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             if (SupplierID == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
             if (supplier == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             return View(supplier);
@@ -162,21 +162,25 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
-            var supplier = await _context.Suppliers.FindAsync(SupplierID);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
-                return HttpNotFound();
+                return View(nameof(NotFound));
             }
-
-            supplier.Products.ToList().ForEach(p => supplier.Products.Remove(p));
 
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Products/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
         }
 
         private bool IsAuthorized()

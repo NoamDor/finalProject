@@ -21,8 +21,6 @@ namespace finalProject.Controllers
         {
             ViewData["Title"] = "מסך מוצרים";
             PopulateProductTypesList();
-
-            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
             return View(await _context.Products.ToListAsync());
         }
 
@@ -30,12 +28,10 @@ namespace finalProject.Controllers
         public async Task<ActionResult> Search(int? ProductTypeId, int? size, string name)
         {
             ViewData["Title"] = "מסך מוצרים";
-            //ViewData["ProductTypeField"] = productType;
             ViewData["NameField"] = name;
             ViewData["SizeField"] = size;
             ProductType productType = await _context.ProductTypes.FindAsync(ProductTypeId);
             PopulateProductTypesList(productType);
-            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
 
             var items = _context.Products.Select(item => item);
 
@@ -60,14 +56,13 @@ namespace finalProject.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             PopulateBranchesList();
 
             Purchase p = new Purchase
             {
-                //UserId = int.Parse(HttpContext.Session.GetString("userid")),
                 Count = 0,
                 BranchId = null,
                 Date = DateTime.Now,
@@ -84,26 +79,21 @@ namespace finalProject.Controllers
         {
             if (HttpContext.Session["isLogin"] != "true")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return RedirectToAction("Login", "User", null);
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //if (!_context.Products.Any(val => val.Id == purchase.ProductId) ||
-                    //    !_context.Branches.Any(val => val.Id == purchase.BranchId) ||
-                    //    !_context.Users.Any(val => val.Id == purchase.UserId))
-                    //{
-                    //    return HttpNotFound();
-                    //}
+                    var product = await _context.Products.FindAsync(purchase.ProductId);
+                    var branch = await _context.Branches.FindAsync(purchase.BranchId);
 
-                    if (!_context.Products.Any(val => val.Id == purchase.ProductId) ||
-                        !_context.Branches.Any(val => val.Id == purchase.BranchId))
+                    if (product == null || branch == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                        return View(nameof(NotFound));
                     }
-
+                    purchase.UserId = Convert.ToInt32(HttpContext.Session["userid"]);
                     _context.Purchases.Add(purchase);
                     await _context.SaveChangesAsync();
                 }
@@ -120,7 +110,7 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
             ViewData["Title"] = "יצירת מוצר חדש";
             PopulateSuppliersList();
@@ -136,14 +126,6 @@ namespace finalProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-
-            //if (file == null)
-            //{
-            //    ViewData["errorMessage"] = "הנך חייב לשים תמונה למוצר!";
-            //    PopulateSuppliersDropDownList();
-            //    PopulateProductTypesDropDownList();
-            //    return View(nameof(Create));
-            //}
 
             if (ModelState.IsValid)
             {
@@ -170,19 +152,19 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             ViewData["Title"] = "מחיקת מוצר";
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Product product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             return View(product);
@@ -194,13 +176,13 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return View("Views/Products/NotFound.cshtml");
+                return View(nameof(NotFound));
             }
 
             product.Purchases.ToList().ForEach(p => product.Purchases.Remove(p));
@@ -214,20 +196,20 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             ViewData["Title"] = "עריכת מוצר קיים";
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Product product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             PopulateSuppliersList(product.SupplierId);
@@ -242,14 +224,14 @@ namespace finalProject.Controllers
         {
             if (!IsAuthorized())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return View("Unauthorized");
             }
 
             Product productToUpdate = await _context.Products.FindAsync(product.Id);
 
             if (productToUpdate == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             if (ModelState.IsValid)
@@ -300,6 +282,12 @@ namespace finalProject.Controllers
                                  orderby d.Name
                                  select d;
             ViewBag.SupplierId = new SelectList(suppliersQuery, "Id", "Name", selectedSupplier);
+        }
+
+        // GET: Products/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
         }
 
         private bool IsAuthorized()

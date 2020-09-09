@@ -238,6 +238,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Register.css" />
+    <Content Include="Content\Unauthorized.css" />
     <Content Include="Images\Products\MenPants1.jpg" />
     <Content Include="Images\Products\MenPants2.jpg" />
     <Content Include="Images\Products\MenShirt1.jpg" />
@@ -276,6 +277,7 @@
     <Content Include="Content\lib\jquery-validation\LICENSE.md" />
     <Content Include="Content\lib\jquery\.bower.json" />
     <Content Include="Content\lib\jquery\dist\jquery.min.map" />
+    <Content Include="fonts\Dead Revolution.otf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Facebook.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -328,6 +330,9 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\NotFound.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Products\NotFound.cshtml" />
+    <Content Include="Views\Suppliers\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

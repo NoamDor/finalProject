@@ -1,7 +1,7 @@
 ﻿@model finalProject.Models.User
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "מחיקת משתמש";
 }
 
 <div class='page-title-container'>
@@ -35,7 +35,14 @@
         </div>
         <div>
             @Html.LabelFor(model => model.IsAdmin, new { @class = "form-label" })
-            @Html.DisplayFor(model => model.IsAdmin)
+            @if (Model.IsAdmin)
+            {
+                <label>כן</label>
+            }
+            else
+            {
+                <label>לא</label>
+            }
         </div>
         <div>
             @Html.LabelFor(model => model.BirthDate, new { @class = "form-label" })

@@ -1,7 +1,7 @@
 ﻿@model finalProject.Models.User
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "עריכת משתמש";
 }
 
 
@@ -38,16 +38,11 @@
             @Html.LabelFor(model => model.IsAdmin, new { @class = "form-label" })
             @Html.EditorFor(model => model.IsAdmin)
         </div>
-        <div class="form-group form_footer">
-            <input type="submit" value="עדכן" class="btn btn-default button" />
+        <div class="form-group form-footer">
+            <input type="submit" value="עדכן" class="submit-form-button btn btn-success" />
+            @Html.ActionLink("לרשימה המלאה", "Index", "Users", null, new { @class = "full-list-action" })
         </div>
     }
-
-
-    <button value="רענן" class="action-button btn btn-default" style="margin-top:18px; position: relative; right: 0px;"
-            onclick="location.href='@Url.Action("Index", "Users", new { City= "", Address= ""})'">
-        <span class="glyphicon glyphicon-refresh"></span>
-    </button>
 </div>
 
 @section Scripts {

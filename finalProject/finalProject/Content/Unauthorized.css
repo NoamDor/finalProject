@@ -1,0 +1,8 @@
+﻿canvas{
+    background-color:red;
+}
+#unauthorized-title {
+    text-shadow: 2px 2px 5px red;
+    font-family: "headerFont";
+}
+

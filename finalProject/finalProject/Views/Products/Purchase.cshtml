@@ -1,11 +1,14 @@
 ﻿@model finalProject.Models.Purchase
+@{
+    ViewData["Title"] = "רכישת מוצר";
+}
 
 <div class='page-title-container'>
     <h2 class='page-title'>רכישת מוצר</h2>
 </div>
 
 <div class='form-container'>
-    @using (Html.BeginForm("Purchase", "Products", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("Purchase", "Products", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -19,22 +22,20 @@
             @Html.LabelFor(model => model.Product.Size, new { @class = "form-label" })
             @Html.EditorFor(model => model.Product.Size, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, new { @class = "form-label" })
-            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-        </div>
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Count, new { @class = "form-label" })
-            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control", @Value = "1", @min = "1" } })
             @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Branch, new { @class = "form-label" })
             @Html.DropDownList("BranchId", null, new { @class = "form-control" })
         </div>
-        @*<input type="hidden" name="UserId" value="@Model.UserId" />*@
+        <input type="hidden" name="UserId" value="@Model.UserId" />
         <input type="hidden" name="ProductId" value="@Model.ProductId" />
         <div class="form-group form-footer">
+            <input type="hidden" name="Date" value="@DateTime.Now" />
             <p id="TotalPrice" class="purchase-price control-label">&#8362;0</p>
             <input type="submit" value="רכוש" class="submit-form-button btn btn-primary" />
             @Html.ActionLink("לרשימה המלאה", "Index", "Products", null, new { @class = "full-list-action" })
@@ -44,6 +45,8 @@
 
 @section Scripts {
     <script>
+       $('#TotalPrice').html('&#8362;' + $('#Count').val() * @Model.Product.Price);
+
         $("#Count").bind('keyup change', function () {
             $('#TotalPrice').html('&#8362;' + $('#Count').val() * @Model.Product.Price);
         });

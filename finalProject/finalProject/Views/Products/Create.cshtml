@@ -1,12 +1,15 @@
 ﻿@model finalProject.Models.Product
+@{
+    ViewData["Title"] = "יצירת מוצר";
+}
 
 <div class='page-title-container'>
     <h2 class='page-title'>יצירת מוצר</h2>
 </div>
 
 <div class='form-container'>
-    @using (Html.BeginForm("Create", "Products", FormMethod.Post, 
-            new { enctype="multipart/form-data", @class = "form" }))
+    @using (Html.BeginForm("Create", "Products", FormMethod.Post,
+            new { enctype = "multipart/form-data", @class = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

@@ -21,7 +21,7 @@
                 <input type="text" name="address" class="form-control" value="@ViewData["Address"]" />
             </div>
             <div class="search-button-container">
-                <button type="submit" class="submit-button btn btn-default">
+                <button title="חפש" type="submit" class="submit-button btn btn-default">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
@@ -35,30 +35,30 @@
     <table class="products-table table table-striped table-hover">
         <thead>
             <tr style="width: 98%">
-                <th scope="col" style="width: 12%">
+                <th scope="col" style="width: 13%">
                     @Html.DisplayNameFor(model => model.Username)
                 </th>
-                <th scope="col" style="width: 15%">
+                <th scope="col" style="width: 11%">
                     @Html.DisplayNameFor(model => model.Password)
                 </th>
-                <th scope="col" style="width: 19.5%">
+                <th scope="col" style="width: 15%">
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
-                <th scope="col" style="width: 12%">
+                <th scope="col" style="width: 10%">
                     @Html.DisplayNameFor(model => model.Gender)
                 </th>
-                <th scope="col" style="width: 12%">
+                <th scope="col" style="width: 15%">
                     @Html.DisplayNameFor(model => model.BirthDate)
                 </th>
-                <th scope="col" style="width: 12%">
+                <th scope="col" style="width: 15%">
                     @Html.DisplayNameFor(model => model.Telephone)
                 </th>
-                <th scope="col" style="width: 10%">
+                <th scope="col" style="width: 7%">
                     @Html.DisplayNameFor(model => model.IsAdmin)
                 </th>
-                <th scope="col" style="width: 5%">
+                <th scope="col" style="width: 6%">
                 </th>
-                <th scope="col" style="width: 5%">
+                <th scope="col" style="width: 6%">
                 </th>
             </tr>
         </thead>
@@ -66,17 +66,17 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td style="width: 12%">
+                <td style="width: 13%">
                     @Html.DisplayFor(modelItem => item.Username)
 
                 </td>
-                <td style="width: 15%">
+                <td style="width: 11%">
                     @Html.DisplayFor(modelItem => item.Password)
                 </td>
-                <td style="width: 19.5%">
+                <td style="width: 15%">
                     @Html.DisplayFor(modelItem => item.Address)
                 </td>
-                <td style="width: 12%">
+                <td style="width: 10%">
                     @{
                         if (item.Gender == 0)
                         { <text>זכר</text> }
@@ -84,13 +84,13 @@
                     { <text>נקבה</text> }
                     }
                 </td>
-                <td style="width: 12%">
+                <td style="width: 15%">
                     @Html.DisplayFor(modelItem => item.BirthDate)
                 </td>
-                <td style="width: 12%">
+                <td style="width: 15%">
                     @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
-                <td style="width: 10%">
+                <td style="width: 7%">
                     @{
                         if (item.IsAdmin == false)
                         { <text>לא</text> }
@@ -98,16 +98,18 @@
                     { <text>כן</text> }
                     }
                 </td>
-                <td style="width: 5%">
-                    <div class="action-button btn btn-default">
-                        <span class="glyphicon glyphicon-edit" 
-                              onclick="location.href='@Url.Action("Edit", "Users", new {Id=item.Id})'"></span>
+                <td style="width: 6%">
+                    <div class="action-button btn btn-default"
+                         onclick="location.href='@Url.Action("Edit", "Users", new {Id=item.Id})'" 
+                         title="ערוך">
+                        <span class="glyphicon glyphicon-edit"></span>
                     </div>
                 </td>
-                <td style="width: 5%">
-                    <div class="action-button btn btn-default">
-                        <span class="glyphicon glyphicon-trash"
-                              onclick="location.href='@Url.Action("Delete", "Users", new {Id=item.Id})'"></span>
+                <td style="width: 6%">
+                    <div class="action-button btn btn-default" 
+                         onclick="location.href='@Url.Action("Delete", "Users", new {Id=item.Id})'" 
+                         title="מחק">
+                        <span class="glyphicon glyphicon-trash"></span>
                     </div>
                 </td>
             </tr>
