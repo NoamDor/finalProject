@@ -23,9 +23,9 @@ namespace finalProject.Controllers
             }
 
             ViewData["Title"] = "מסך משתמשים";
-            ViewData["BranchesUsernameQuery"] = Username;
-            ViewData["BranchesPasswordQuery"] = Password;
-            ViewData["BranchesAddressQuery"] = Address;
+            ViewData["Username"] = Username;
+            ViewData["Password"] = Password;
+            ViewData["Address"] = Address;
 
             var users = _context.Users.Select(x => x);
 
@@ -76,6 +76,7 @@ namespace finalProject.Controllers
                 userDb.Username = user.Username;
                 userDb.Address = user.Address;
                 userDb.Password = user.Password;
+                userDb.Telephone = user.Telephone;
                 userDb.IsAdmin = user.IsAdmin;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

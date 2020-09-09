@@ -11,6 +11,14 @@ body {
     text-align: center;
 }
 
+.shop-title {
+    direction: rtl;
+    column-count: 2;
+    width: 14%;
+    margin: auto;
+    column-gap: 80px;
+}
+
 .form-container {
     margin-top: 3%;
     display: flex;
