@@ -74,6 +74,11 @@ namespace finalProject.Controllers
             var branch = _context.Branches.Where(b => b.Id == id)
                                  .FirstOrDefault();
 
+            if (branch == null)
+            {
+                return View(nameof(NotFound));
+            }
+
             return View(branch);
         }
 
@@ -90,6 +95,10 @@ namespace finalProject.Controllers
             {
                 var branchDb = _context.Branches.Where(b => b.Id == branch.Id)
                              .FirstOrDefault();
+                if (branchDb == null)
+                {
+                    return View(nameof(NotFound));
+                }
                 branchDb.City = branch.City;
                 branchDb.Address = branch.Address;
                 branchDb.Telephone = branch.Telephone;
@@ -114,6 +123,11 @@ namespace finalProject.Controllers
             var branch = _context.Branches.Where(b => b.Id == id)
                                  .FirstOrDefault();
 
+            if (branch == null)
+            {
+                return View(nameof(NotFound));
+            }
+
             return View(branch);
         }
 
@@ -130,12 +144,18 @@ namespace finalProject.Controllers
                           .FirstOrDefault();
             if(branchDb == null)
             {
-                return View("Error");
+                return View(nameof(NotFound));
             }
 
             _context.Branches.Remove(branchDb);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        // GET: Products/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
         }
 
         private bool IsAuthorized()

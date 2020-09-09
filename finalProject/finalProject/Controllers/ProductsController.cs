@@ -77,6 +77,7 @@ namespace finalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Purchase([Bind(Include = "Count, Date, BranchId, ProductId, UserId")] Purchase purchase)
         {
+
             if (HttpContext.Session["isLogin"] != "true")
             {
                 return RedirectToAction("Login", "User", null);
@@ -99,7 +100,7 @@ namespace finalProject.Controllers
                 }
                 catch (Exception e)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return View("Error");
                 }
             }
 
@@ -140,8 +141,7 @@ namespace finalProject.Controllers
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "Unable to save changes");
-                    return new HttpStatusCodeResult(HttpStatusCode.ExpectationFailed);
+                    return View("Error");
                 }
             }
 
@@ -252,8 +252,7 @@ namespace finalProject.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Unable to save changes");
-                    return new HttpStatusCodeResult(HttpStatusCode.ExpectationFailed);
+                    return View("Error");
                 }
             }
 

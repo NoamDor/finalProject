@@ -86,11 +86,11 @@
                                     @if (isAdmin != null && isAdmin.ToString() == "true")
                                     {
                                         <div style="display: flex; justify-content: center;" title="ערוך">
-                                            <div class="action-button btn btn-default">
-                                                <span class="glyphicon glyphicon-edit" onclick="location.href='@Url.Action("Edit", "Branches", new { Id = item.Id })'"></span>
+                                            <div onclick="location.href='@Url.Action("Edit", "Branches", new { Id = item.Id })'" class="action-button btn btn-default">
+                                                <span class="glyphicon glyphicon-edit" ></span>
                                             </div>
-                                            <div class="action-button btn btn-default" title="מחק">
-                                                <span class="glyphicon glyphicon-trash" onclick="location.href='@Url.Action("Delete", "Branches", new { Id = item.Id })'"></span>
+                                            <div  onclick="location.href='@Url.Action("Delete", "Branches", new { Id = item.Id })'" class="action-button btn btn-default" title="מחק">
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </div>
                                         </div>
                                     }
