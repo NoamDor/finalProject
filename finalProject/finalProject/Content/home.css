@@ -42,6 +42,8 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
     display: flex;
     justify-content: space-between;
+    column-count: 2;
+    column-rule-color: red;
 }
 
 .branch_address_container {
@@ -88,6 +90,10 @@
 
 #weather_img {
     height: 75px;
+}
+
+.weather_div{
+    column-count:2;
 }
 
 .predicted-products {

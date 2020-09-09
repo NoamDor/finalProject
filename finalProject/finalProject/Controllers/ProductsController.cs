@@ -103,7 +103,7 @@ namespace finalProject.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                     }
-
+                    purchase.UserId = Convert.ToInt32(HttpContext.Session["userid"]);
                     _context.Purchases.Add(purchase);
                     await _context.SaveChangesAsync();
                 }
