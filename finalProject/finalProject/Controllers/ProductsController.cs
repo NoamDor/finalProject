@@ -56,7 +56,7 @@ namespace finalProject.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             PopulateBranchesList();
@@ -86,10 +86,12 @@ namespace finalProject.Controllers
             {
                 try
                 {
-                    if (!_context.Products.Any(val => val.Id == purchase.ProductId) ||
-                        !_context.Branches.Any(val => val.Id == purchase.BranchId))
+                    var product = await _context.Products.FindAsync(purchase.ProductId);
+                    var branch = await _context.Branches.FindAsync(purchase.BranchId);
+
+                    if (product == null || branch == null)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                        return View(nameof(NotFound));
                     }
                     purchase.UserId = Convert.ToInt32(HttpContext.Session["userid"]);
                     _context.Purchases.Add(purchase);
@@ -156,13 +158,13 @@ namespace finalProject.Controllers
             ViewData["Title"] = "מחיקת מוצר";
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Product product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             return View(product);
@@ -180,7 +182,7 @@ namespace finalProject.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return View("Views/Products/NotFound.cshtml");
+                return View(nameof(NotFound));
             }
 
             product.Purchases.ToList().ForEach(p => product.Purchases.Remove(p));
@@ -201,13 +203,13 @@ namespace finalProject.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Product product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             PopulateSuppliersList(product.SupplierId);
@@ -229,7 +231,7 @@ namespace finalProject.Controllers
 
             if (productToUpdate == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             if (ModelState.IsValid)
@@ -280,6 +282,12 @@ namespace finalProject.Controllers
                                  orderby d.Name
                                  select d;
             ViewBag.SupplierId = new SelectList(suppliersQuery, "Id", "Name", selectedSupplier);
+        }
+
+        // GET: Products/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
         }
 
         private bool IsAuthorized()
