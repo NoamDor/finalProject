@@ -331,6 +331,8 @@
     <Content Include="Views\Users\NotFound.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Products\NotFound.cshtml" />
+    <Content Include="Views\Suppliers\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

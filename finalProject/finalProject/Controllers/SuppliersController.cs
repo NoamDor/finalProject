@@ -77,13 +77,13 @@ namespace finalProject.Controllers
 
             if (SupplierID == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
             if (supplier == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             //var supplier = _context.Suppliers.ToList().Where(s => s.Id == SupplierID).FirstOrDefault();
@@ -104,7 +104,7 @@ namespace finalProject.Controllers
 
             if (supplierToUpdate == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             if (ModelState.IsValid)
@@ -142,13 +142,13 @@ namespace finalProject.Controllers
 
             if (SupplierID == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             Supplier supplier = await _context.Suppliers.FindAsync(SupplierID);
             if (supplier == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View(nameof(NotFound));
             }
 
             return View(supplier);
@@ -169,12 +169,18 @@ namespace finalProject.Controllers
 
             if (supplier == null)
             {
-                return HttpNotFound();
+                return View(nameof(NotFound));
             }
 
             _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Products/NotFound
+        public ActionResult NotFound()
+        {
+            return View();
         }
 
         private bool IsAuthorized()
