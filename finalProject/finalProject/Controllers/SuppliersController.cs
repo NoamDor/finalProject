@@ -61,7 +61,7 @@ namespace finalProject.Controllers
                 }
                 catch (Exception e)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return View("Error");
                 }
             }
 
@@ -124,8 +124,7 @@ namespace finalProject.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Unable to save changes");
-                    return new HttpStatusCodeResult(HttpStatusCode.ExpectationFailed);
+                    return View("Error");
                 }
             }
 
