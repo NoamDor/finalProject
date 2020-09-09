@@ -21,8 +21,6 @@ namespace finalProject.Controllers
         {
             ViewData["Title"] = "מסך מוצרים";
             PopulateProductTypesList();
-
-            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
             return View(await _context.Products.ToListAsync());
         }
 
@@ -30,12 +28,10 @@ namespace finalProject.Controllers
         public async Task<ActionResult> Search(int? ProductTypeId, int? size, string name)
         {
             ViewData["Title"] = "מסך מוצרים";
-            //ViewData["ProductTypeField"] = productType;
             ViewData["NameField"] = name;
             ViewData["SizeField"] = size;
             ProductType productType = await _context.ProductTypes.FindAsync(ProductTypeId);
             PopulateProductTypesList(productType);
-            //ViewBag.ProductTypes = _context.ProductTypes.Select(pt => pt.Name).ToList();
 
             var items = _context.Products.Select(item => item);
 
@@ -67,7 +63,6 @@ namespace finalProject.Controllers
 
             Purchase p = new Purchase
             {
-                //UserId = int.Parse(HttpContext.Session.GetString("userid")),
                 Count = 0,
                 BranchId = null,
                 Date = DateTime.Now,
@@ -91,13 +86,6 @@ namespace finalProject.Controllers
             {
                 try
                 {
-                    //if (!_context.Products.Any(val => val.Id == purchase.ProductId) ||
-                    //    !_context.Branches.Any(val => val.Id == purchase.BranchId) ||
-                    //    !_context.Users.Any(val => val.Id == purchase.UserId))
-                    //{
-                    //    return HttpNotFound();
-                    //}
-
                     if (!_context.Products.Any(val => val.Id == purchase.ProductId) ||
                         !_context.Branches.Any(val => val.Id == purchase.BranchId))
                     {
@@ -136,14 +124,6 @@ namespace finalProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-
-            //if (file == null)
-            //{
-            //    ViewData["errorMessage"] = "הנך חייב לשים תמונה למוצר!";
-            //    PopulateSuppliersDropDownList();
-            //    PopulateProductTypesDropDownList();
-            //    return View(nameof(Create));
-            //}
 
             if (ModelState.IsValid)
             {

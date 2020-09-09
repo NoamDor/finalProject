@@ -77,6 +77,7 @@ namespace finalProject.Controllers
                 userDb.Address = user.Address;
                 userDb.Password = user.Password;
                 userDb.IsAdmin = user.IsAdmin;
+                userDb.Telephone = user.Telephone;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
