@@ -19,7 +19,7 @@ namespace finalProject.Models
         public virtual Product Product { get; set; }
 
         [Required(ErrorMessage ="אנא הכנס כמות")]
-        [Range(1, int.MaxValue)]
+        [Range(1, 10)]
         [DisplayName("כמות")]
         public int Count { get; set; }
 
