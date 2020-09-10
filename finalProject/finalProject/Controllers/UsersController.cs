@@ -56,6 +56,10 @@ namespace finalProject.Controllers
 
             var user = _context.Users.Where(b => b.Id == id)
                                  .FirstOrDefault();
+            if (user == null)
+            {
+                return View(nameof(NotFoundManage));
+            }
 
             return View(user);
         }
@@ -73,6 +77,10 @@ namespace finalProject.Controllers
             {
                 var userDb = _context.Users.Where(u => u.Id == user.Id)
                              .FirstOrDefault();
+                if (userDb == null)
+                {
+                    return View(nameof(NotFoundManage));
+                }
                 userDb.Username = user.Username;
                 userDb.Address = user.Address;
                 userDb.Password = user.Password;
@@ -97,6 +105,10 @@ namespace finalProject.Controllers
 
             var user = _context.Users.Where(u => u.Id == id)
                                  .FirstOrDefault();
+            if (user == null)
+            {
+                return View(nameof(NotFoundManage));
+            }
 
             return View(user);
         }
@@ -114,7 +126,7 @@ namespace finalProject.Controllers
                           .FirstOrDefault();
             if (userDb == null)
             {
-                return View("Error");
+                return View(nameof(NotFoundManage));
             }
 
             _context.Users.Remove(userDb);
@@ -169,15 +181,17 @@ namespace finalProject.Controllers
             HttpContext.Session.Add("userid", user.Id.ToString());
             HttpContext.Session.Add("isLogin", "true");
 
-            if (user.IsAdmin)
-            {
-                return RedirectToAction("Index");
-            }
             return RedirectToAction("Index", "Home", null);
         }
 
         // GET: Users/NotFound
         public ActionResult NotFound()
+        {
+            return View();
+        }
+
+        // GET: Users/NotFoundManage
+        public ActionResult NotFoundManage()
         {
             return View();
         }

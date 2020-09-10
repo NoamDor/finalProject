@@ -294,6 +294,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\waypoints.min.js" />
+    <None Include="Views\Users\NotFoundManage.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
